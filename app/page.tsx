@@ -1,33 +1,7 @@
-const navItems = ["Medeo", "Seedance", "Projects", "Speaking", "Contact"];
+"use client";
 
-const stats = [
-  ["25M+", "reported impressions, Seedance 2.0"],
-  ["Medeo", "Head of Product, AI video"],
-  ["5+", "AI short films produced"],
-];
-
-const press = [
-  {
-    text: "Times of India coverage of the Stranger Things AI finale experiment.",
-    link: "https://timesofindia.indiatimes.com",
-  },
-  {
-    text: "Zoom TV: Stranger Things AI-Created Finale Goes Viral.",
-    link: null,
-  },
-  {
-    text: "Linkloud salon recap: making a 25M-view AI video with 50 RMB.",
-    link: null,
-  },
-  {
-    text: "QCon Beijing / InfoQ: AI-native product engineering and Flow Engineer roles.",
-    link: null,
-  },
-  {
-    text: "Public workflow breakdowns for Devices, The Creature, Vision, and AI-native video production.",
-    link: null,
-  },
-];
+import { LanguageProvider, useLanguage } from "./language-context";
+import dict from "./i18n";
 
 const links = [
   ["X", "https://x.com/ran_zixing"],
@@ -36,7 +10,10 @@ const links = [
   ["Jike", "https://web.okjike.com/u/B6B0FF28-51D1-4A11-803E-FC46A0AD6EF8"],
 ];
 
-export default function Home() {
+function PageContent() {
+  const { locale, toggle } = useLanguage();
+  const t = dict[locale];
+
   return (
     <main>
       <header className="site-header">
@@ -44,18 +21,21 @@ export default function Home() {
           CHENRAN NING
         </a>
         <nav aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`}>
+          {t.nav.map((item, i) => (
+            <a key={i} href={`#${["medeo", "seedance", "projects", "speaking", "contact"][i]}`}>
               {item}
             </a>
           ))}
+          <button className="lang-toggle" onClick={toggle} type="button">
+            {t.langToggle}
+          </button>
         </nav>
       </header>
 
       <aside className="side-rail" aria-label="Highlights">
-        <p>Proof includes</p>
-        {stats.map(([number, label], index) => (
-          <a href="#medeo" key={label}>
+        <p>{t.sideRail.title}</p>
+        {t.sideRail.stats.map(([number, label], index) => (
+          <a href="#medeo" key={index}>
             <span>{String(index + 1).padStart(2, "0")}</span>
             <strong>{number}</strong>
             <small>{label}</small>
@@ -65,18 +45,16 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <h1>CHENRAN NING</h1>
+          <h1>{t.hero.name}</h1>
           <div className="hero-tags">
-            <span className="hero-tag">AI Video Product Lead</span>
-            <span className="hero-tag">Full-stack Engineer</span>
-            <span className="hero-tag">AI Filmmaker</span>
+            {t.hero.tags.map((tag) => (
+              <span className="hero-tag" key={tag}>{tag}</span>
+            ))}
           </div>
-          <p className="lede">
-            I connect AI model capabilities, product experience, and creative storytelling into things people actually use and share.
-          </p>
+          <p className="lede">{t.hero.lede}</p>
           <div className="hero-actions">
-            <a href="#medeo">Enter work</a>
-            <a href="#contact">Contact</a>
+            <a href="#medeo">{t.hero.cta[0]}</a>
+            <a href="#contact">{t.hero.cta[1]}</a>
           </div>
         </div>
         <figure className="hero-media">
@@ -93,12 +71,10 @@ export default function Home() {
         <div className="medeo-content">
           <div className="medeo-header">
             <img src="/assets/medeo-logo.png" alt="Medeo" className="medeo-inline-logo" />
-            <p className="role-tag">Head of Product</p>
+            <p className="role-tag">{t.medeo.role}</p>
           </div>
-          <h2>Conversation-first AI video editor.</h2>
-          <p>
-            Create and edit video through natural language. Text, images, scripts go in; publishable video comes out. I own product strategy, roadmap, and the full creation workflow.
-          </p>
+          <h2>{t.medeo.heading}</h2>
+          <p>{t.medeo.body}</p>
           <div className="medeo-links">
             <a href="https://www.medeo.app/" target="_blank" rel="noreferrer">
               medeo.app
@@ -108,7 +84,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-        </section>
+      </section>
 
       <section className="section seedance-section" id="seedance">
         <div className="section-label">
@@ -116,22 +92,23 @@ export default function Home() {
           <p>Seedance</p>
         </div>
         <div className="seedance-content">
-          <h2>25M+ impressions from one AI film experiment.</h2>
-          <p>
-            I created a Stranger Things finale reimagined entirely with Seedance 2.0. The film went viral across Chinese and international media, becoming one of the most-referenced examples of AI video storytelling in 2026.
-          </p>
+          <h2>{t.seedance.heading}</h2>
+          <p>{t.seedance.body}</p>
           <div className="seedance-proof">
-            <h3>Coverage</h3>
+            <h3>{t.seedance.coverageTitle}</h3>
             <ul>
-              <li><a href="https://timesofindia.indiatimes.com/technology/tech-news/stranger-things-finale-created-with-ai-goes-viral/articleshow/121786498.cms" target="_blank" rel="noreferrer">Times of India: international entertainment media pickup</a></li>
-              <li><a href="https://www.zoom.tv/entertainment/stranger-things-ai-created-finale-goes-viral" target="_blank" rel="noreferrer">Zoom TV: &quot;Stranger Things AI-Created Finale Goes Viral&quot;</a></li>
-              <li>Multiple Chinese AI / entertainment outlets</li>
-              <li><a href="https://mp.weixin.qq.com/s/sMg2MsaClpFIMBx8A1tJRQ" target="_blank" rel="noreferrer">Linkloud salon: detailed methodology breakdown</a></li>
+              {t.seedance.coverage.map((item, i) => (
+                <li key={i}>
+                  {item.link ? (
+                    <a href={item.link} target="_blank" rel="noreferrer">{item.text}</a>
+                  ) : (
+                    item.text
+                  )}
+                </li>
+              ))}
             </ul>
-            <h3>Methodology</h3>
-            <p>
-              Content scarcity, script information density, fast MVP testing, cross-platform distribution, and an AI-native production pipeline. Total production cost: 50 RMB.
-            </p>
+            <h3>{t.seedance.methodologyTitle}</h3>
+            <p>{t.seedance.methodology}</p>
           </div>
         </div>
         <div className="video-hero">
@@ -144,7 +121,7 @@ export default function Home() {
         </div>
         <div className="seedance-links">
           <a href="https://x.com/Nin19536/status/2021956823457440179" target="_blank" rel="noreferrer">
-            View original post on X
+            {t.seedance.viewPost}
           </a>
         </div>
       </section>
@@ -152,24 +129,20 @@ export default function Home() {
       <section className="section projects-section" id="projects">
         <div className="section-label">
           <span>03</span>
-          <p>Projects</p>
+          <p>{locale === "en" ? "Projects" : "作品"}</p>
         </div>
         <div className="projects-content">
           <article className="project-feature">
-            <h3>AI Will</h3>
-            <p className="project-collab">with Xinshixiang</p>
-            <p>
-              Designed and built an AI-guided reflective writing experience. Through structured conversation, 10,000+ young people explored mortality, relationships, and personal values. AI as medium for self-reflection, not content generation.
-            </p>
+            <h3>{t.projects.aiWill.title}</h3>
+            <p className="project-collab">{t.projects.aiWill.collab}</p>
+            <p>{t.projects.aiWill.body}</p>
             <a href="https://www.douban.com/note/864914620/" target="_blank" rel="noreferrer">
-              Douban project page
+              {t.projects.aiWill.link}
             </a>
           </article>
           <article className="project-feature">
-            <h3>AI Short Films</h3>
-            <p>
-              Director, writer, and editor on multiple AI short films: The Creature (Whisk + Kling), Devices (Blender + ComfyUI), Vision (MJ + GPT-4o + Luma/Runway). Each serves as a public workflow breakdown and production-method test.
-            </p>
+            <h3>{t.projects.aiFilms.title}</h3>
+            <p>{t.projects.aiFilms.body}</p>
           </article>
         </div>
       </section>
@@ -177,13 +150,13 @@ export default function Home() {
       <section className="section proof" id="speaking">
         <div className="section-label">
           <span>04</span>
-          <p>Speaking</p>
+          <p>{locale === "en" ? "Speaking" : "演讲"}</p>
         </div>
         <div className="proof-copy">
-          <h2>Public thinking, not just shipped screens.</h2>
+          <h2>{t.speaking.heading}</h2>
           <div>
-            {press.map((item) => (
-              <p key={item.text}>
+            {t.speaking.press.map((item, i) => (
+              <p key={i}>
                 {item.link ? (
                   <a href={item.link} target="_blank" rel="noreferrer">{item.text}</a>
                 ) : (
@@ -200,8 +173,8 @@ export default function Home() {
 
       <footer className="footer" id="contact">
         <div>
-          <p className="eyebrow">Connect</p>
-          <h2>Build the next AI-native story with me.</h2>
+          <p className="eyebrow">{t.footer.eyebrow}</p>
+          <h2>{t.footer.heading}</h2>
         </div>
         <div className="footer-links">
           {links.map(([label, href]) => (
@@ -212,5 +185,13 @@ export default function Home() {
         </div>
       </footer>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <LanguageProvider>
+      <PageContent />
+    </LanguageProvider>
   );
 }

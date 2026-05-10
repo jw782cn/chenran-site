@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Xique Song";
+  src: url("/fonts/xique-song.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ink: #080806;
   --paper: #f3eee4;
@@ -717,4 +725,31 @@ h2 {
     height: auto;
     aspect-ratio: 1;
   }
+}
+
+.lang-toggle {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 12px;
+  letter-spacing: 0;
+  background: none;
+  border: none;
+  border-left: 1px solid var(--line);
+  color: var(--paper);
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+.lang-toggle:hover {
+  background: rgba(243, 238, 228, 0.08);
+}
+
+[data-locale="zh"] h1,
+[data-locale="zh"] h2,
+[data-locale="zh"] h3 {
+  font-family: "Xique Song", serif;
+  text-transform: none;
 }
