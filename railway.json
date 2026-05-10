@@ -1,0 +1,10 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "buildCommand": "pnpm install --frozen-lockfile && NEXT_TELEMETRY_DISABLED=1 pnpm build"
+  },
+  "deploy": {
+    "startCommand": "pnpm start",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}
