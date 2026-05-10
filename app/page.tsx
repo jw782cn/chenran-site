@@ -26,9 +26,16 @@ function PageContent() {
               {item}
             </a>
           ))}
-          <button className="lang-toggle" onClick={toggle} type="button">
-            {t.langToggle}
-          </button>
+          <div className="lang-select-wrapper">
+            <select
+              className="lang-select"
+              value={locale}
+              onChange={(e) => { if (e.target.value !== locale) toggle(); }}
+            >
+              <option value="en">EN</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
         </nav>
       </header>
 

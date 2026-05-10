@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Xique Song";
-  src: url("/fonts/xique-song.ttf") format("truetype");
+  font-family: XiqueSong;
+  src: url("/fonts/xique-song.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -727,29 +727,32 @@ h2 {
   }
 }
 
-.lang-toggle {
+.lang-select-wrapper {
   min-height: 42px;
   display: inline-flex;
   align-items: center;
-  padding: 0 16px;
-  font-size: 12px;
-  letter-spacing: 0;
-  background: none;
-  border: none;
+  padding: 0 12px;
   border-left: 1px solid var(--line);
-  color: var(--paper);
-  cursor: pointer;
-  font-family: inherit;
-  text-transform: uppercase;
 }
 
-.lang-toggle:hover {
-  background: rgba(243, 238, 228, 0.08);
+.lang-select {
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-size: 12px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-family: inherit;
+  appearance: auto;
+}
+
+[data-locale="zh"],
+[data-locale="zh"] * {
+  font-family: XiqueSong, "PingFang SC", "Microsoft YaHei", sans-serif !important;
 }
 
 [data-locale="zh"] h1,
 [data-locale="zh"] h2,
 [data-locale="zh"] h3 {
-  font-family: "Xique Song", serif;
   text-transform: none;
 }
