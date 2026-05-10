@@ -4,7 +4,6 @@ const stats = [
   ["25M+", "reported impressions, Seedance 2.0"],
   ["Medeo", "Head of Product, AI video"],
   ["5+", "AI short films produced"],
-  ["10K+", "AI Will participants"],
 ];
 
 const press = [
