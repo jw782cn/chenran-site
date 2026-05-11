@@ -688,6 +688,17 @@
   color: #f3eee4;
 }
 
+.cartLines span {
+  display: grid;
+  gap: 4px;
+}
+
+.cartLines em {
+  color: #9a9489;
+  font-size: 11px;
+  font-style: normal;
+}
+
 .totalBox {
   margin-top: 14px;
   border-top: 1px solid rgba(243, 238, 228, 0.28);

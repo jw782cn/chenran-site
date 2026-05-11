@@ -96,8 +96,8 @@ const services: Service[] = [
     max: 12,
     summary: "每次约 60 到 75 分钟，主要面向管理层和项目负责人",
     detail:
-      "围绕团队应用情况、典型案例、工具方法变化、阶段问题和下一步推进建议进行讨论，可用于阶段复盘和下一阶段建议",
-    bestFor: "让管理层持续看到团队应用情况和阶段推进重点",
+      "围绕 AI 创意工具变化、行业案例、竞品应用方式、组织推进判断和下一阶段建议进行讨论，可用于帮助管理层补充行业认知",
+    bestFor: "帮助管理层和项目负责人获得 AI 行业认知、工具趋势和推进判断",
   },
   {
     id: "f",
@@ -143,12 +143,12 @@ const plans: Plan[] = [
     id: "system",
     title: "方案三：2 个月业务应用推进包",
     subtitle: "更适合希望线下持续推动业务团队应用的总包合作",
-    price: 88000,
-    listPrice: 114000,
+    price: 84000,
+    listPrice: 116000,
     bestFor: "适合 DR 希望培训后继续通过线下复盘和业务辅导，把 AI 真正带进团队日常工作",
     onsite: ["A 首周现场 AI 启动营 × 1", "B 追加线下专题辅导日 × 3"],
-    online: ["C 线上课后答疑 × 4", "D 线上应用辅导课 × 4", "E 线上顾问例会 × 2"],
-    included: { a: 1, b: 3, c: 4, d: 4, e: 2 },
+    online: ["C 线上课后答疑 × 4", "D 线上应用辅导课 × 6"],
+    included: { a: 1, b: 3, c: 4, d: 6 },
   },
   {
     id: "custom",
@@ -174,7 +174,7 @@ const valueItems = [
   ["共同认知", "让不同团队对 AI 能力边界、适用场景和结果判断形成共同语言，减少各部门各自摸索的时间成本"],
   ["岗位方法", "把图片、视频、脚本、产品 demo、电商素材等工作拆成可操作步骤，让成员知道如何把 AI 放进自己的日常任务"],
   ["真实场景", "围绕 DR 自己的业务样例做讲解和演练，让学习结果能回到视觉、社媒、产品、电商的真实需求里继续尝试"],
-  ["持续推进", "通过课后答疑、应用辅导课、顾问例会和可追加线下辅导，让培训不止停留在听懂，而是进入使用、复盘和迭代"],
+  ["持续推进", "通过课后答疑、应用辅导课和可追加线下辅导，让培训不止停留在听懂，而是进入使用、复盘和迭代"],
 ];
 
 const coursePlan = [
@@ -200,7 +200,7 @@ const planDetails = [
       "首周完成 5 个上午现场培训",
       "后续安排 4 次线上课后答疑",
       "后续安排 4 次线上应用辅导课，可采用线上授课、案例讲解、轻量场景拆解等形式",
-      "最后 1 次线上顾问例会用于阶段复盘和下一步建议",
+      "最后 1 次线上顾问例会用于补充行业认知、工具趋势和下一步推进判断",
       "线上应用辅导课主要面向业务人员，DR 可根据每次主题提前提供少量真实业务样例，例如电商头图、社媒故事片、产品创意 demo、空间陈列概念等",
     ],
   },
@@ -212,19 +212,17 @@ const planDetails = [
       "首周完成 5 个上午现场培训",
       "后续安排 4 次线上课后答疑",
       "后续安排 3 次线下专题辅导日，优先面向业务团队做专题加深、案例复盘和结果诊断",
-      "后续安排 4 次线上应用辅导课",
-      "后续安排 2 次线上顾问例会，用于启动对齐和阶段复盘，不作为主要交付重心",
+      "后续安排 6 次线上应用辅导课，可按视觉、社媒、产品、电商等业务主题展开",
       "线下专题辅导日用于专题加深、团队案例复盘、生成结果集中诊断或管理层沟通",
       "线上应用辅导课主要面向业务人员，可单个团队参加，也可多个团队共同参加",
-      "线上顾问例会主要面向管理层和项目负责人，用于同步团队应用情况、阶段问题和下一步推进建议",
     ],
   },
 ];
 
 const addOnMechanisms = [
-  ["追加 1 个线下工作日", "12,000 元 + 差旅", "12,000 元 + 差旅", "适合单次专题加深或集中复盘，现场服务合计不超过 5 小时"],
-  ["连续追加 2 个线下工作日", "24,000 元 + 差旅", "22,000 元 + 差旅", "适合覆盖 2 个专题或多个团队集中复盘"],
-  ["连续追加 3 个线下工作日", "36,000 元 + 差旅", "30,000 元 + 差旅", "适合做阶段性集中辅导、跨团队案例诊断和管理层复盘"],
+  ["追加 1 个线下工作日", "12,000 元 + 差旅", "按所选方案折扣计算", "适合单次专题加深或集中复盘，现场服务合计不超过 5 小时"],
+  ["连续追加 2 个线下工作日", "24,000 元 + 差旅", "按所选方案折扣计算", "适合覆盖 2 个专题或多个团队集中复盘"],
+  ["连续追加 3 个线下工作日", "36,000 元 + 差旅", "按所选方案折扣计算", "适合做阶段性集中辅导、跨团队案例诊断和管理层复盘"],
   ["追加 1 期线下 AI 启动营", "38,000 元 + 差旅", "可结合其他服务另行组合", "适合新一批成员或新增团队系统学习，默认连续 5 个半天"],
 ];
 
@@ -303,18 +301,18 @@ function formatPrice(value: number) {
   return `¥${yuan.format(value)}`;
 }
 
-function getLineDayPrice(quantity: number) {
-  if (quantity <= 0) return 0;
-  if (quantity === 1) return 12000;
-  if (quantity === 2) return 22000;
-  return 30000 + Math.max(0, quantity - 3) * 10000;
+function roundToHundred(value: number) {
+  return Math.round(value / 100) * 100;
 }
 
-function getServicePrice(service: Service, quantity: number) {
-  if (service.id === "b") {
-    return getLineDayPrice(quantity);
-  }
-  return service.price * quantity;
+function getPlanDiscountRate(plan: Plan) {
+  if (!plan.listPrice) return 1;
+  return plan.price / plan.listPrice;
+}
+
+function getAddonPrice(plan: Plan, listPrice: number) {
+  if (plan.id === "custom") return listPrice;
+  return roundToHundred(listPrice * getPlanDiscountRate(plan));
 }
 
 function getPlanDiscount(plan: Plan) {
@@ -341,7 +339,7 @@ function App() {
       .map((service) => {
         const quantity = addons[service.id] ?? 0;
         const listPrice = service.price * quantity;
-        const price = getServicePrice(service, quantity);
+        const price = getAddonPrice(selectedPlan, listPrice);
         return {
           service,
           quantity,
@@ -591,7 +589,7 @@ function App() {
           <div className={styles.addonPanel}>
             <div className={styles.panelHeader}>
               <h3>加购服务</h3>
-              <p>可在当前方案上继续追加，或选择自由组合后从 0 开始搭配。自由组合先计算标准合计，具体优惠面聊确认</p>
+              <p>可在当前方案上继续追加，追加服务会按所选方案的预估折扣计算。自由组合先计算标准合计，具体优惠面聊确认</p>
             </div>
             <div className={styles.addonList}>
               {services.map((service) => {
@@ -668,6 +666,7 @@ function App() {
                     <p key={row.service.id}>
                       <span>
                         {row.service.code} × {row.quantity}
+                        {!isCustomPlan ? <em>标准 {formatPrice(row.listPrice)}</em> : null}
                       </span>
                       <strong>{formatPrice(selectedPlan.id === "custom" ? row.listPrice : row.price)}</strong>
                     </p>
@@ -728,7 +727,7 @@ function App() {
             ))}
           </div>
           <p className={styles.sectionNote}>
-            以上线上次数可根据双方排期合并或分批安排。方案 2 和方案 3 中，C 用于处理基础共性问题，D 用于线上授课、案例讲解和轻量场景拆解，E 用于管理层沟通和阶段推进议题
+            以上线上次数可根据双方排期合并或分批安排。C 用于处理基础共性问题，D 用于线上授课、案例讲解和轻量场景拆解，E 更偏向行业认知、工具趋势和管理层判断，不作为业务辅导主线
           </p>
         </div>
       </section>
