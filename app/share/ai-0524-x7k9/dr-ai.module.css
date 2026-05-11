@@ -908,7 +908,7 @@
   line-height: 1.65;
 }
 
-.workflowCta a {
+.workflowCta button {
   min-height: 42px;
   display: inline-flex;
   align-items: center;
@@ -919,7 +919,9 @@
   background: #d9ff6b;
   font-size: 12px;
   font-weight: 900;
+  font-family: inherit;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .summaryList {
@@ -938,6 +940,176 @@
   color: #d6d1c7;
   font-size: 17px;
   line-height: 1.45;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  background: rgba(8, 8, 6, 0.78);
+  padding: 24px;
+}
+
+.workflowModal {
+  width: min(1080px, 100%);
+  max-height: min(860px, calc(100vh - 48px));
+  overflow-y: auto;
+  border: 1px solid rgba(243, 238, 228, 0.3);
+  background:
+    linear-gradient(90deg, rgba(243, 238, 228, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(243, 238, 228, 0.04) 1px, transparent 1px),
+    #080806;
+  background-size: 56px 56px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+}
+
+.modalHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+  border-bottom: 1px solid rgba(243, 238, 228, 0.24);
+  background: rgba(8, 8, 6, 0.92);
+  padding: 22px;
+}
+
+.modalHeader p {
+  margin: 0 0 8px;
+  color: #a8b3ac;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  color: #f3eee4;
+  font-size: 42px;
+  line-height: 0.98;
+}
+
+.modalHeader button {
+  min-height: 38px;
+  border: 1px solid rgba(243, 238, 228, 0.4);
+  padding: 0 14px;
+  color: #f3eee4;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.modalIntro {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 28px;
+  border-bottom: 1px solid rgba(243, 238, 228, 0.18);
+  padding: 24px 22px;
+}
+
+.modalIntro strong {
+  color: #d9ff6b;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.modalIntro p {
+  margin: 0;
+  color: #d6d1c7;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.modalBlock {
+  padding: 24px 22px 0;
+}
+
+.modalBlock h3,
+.modalBoundary h3 {
+  margin: 0 0 16px;
+  color: #d9ff6b;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.modalGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.modalGrid article,
+.modalTimeline article {
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(243, 238, 228, 0.22);
+  padding: 16px;
+}
+
+.modalGrid h4,
+.modalTimeline h4 {
+  margin: 0 0 20px;
+  color: #f3eee4;
+  font-size: 19px;
+  line-height: 1.1;
+}
+
+.modalGrid p,
+.modalTimeline p,
+.modalBoundary li {
+  margin: 0;
+  color: #d6d1c7;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.modalTimeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.modalTimeline span {
+  color: #d9ff6b;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.modalBoundary {
+  margin: 24px 22px 22px;
+  border-top: 1px solid rgba(243, 238, 228, 0.24);
+  padding-top: 22px;
+}
+
+.modalBoundary ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modalBoundary li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.modalBoundary li::before {
+  content: "";
+  position: absolute;
+  top: 0.84em;
+  left: 0;
+  width: 6px;
+  height: 1px;
+  background: #d9ff6b;
 }
 
 @media (max-width: 1100px) {
@@ -960,6 +1132,8 @@
   .timeline,
   .addOnTable,
   .boundaryText,
+  .modalGrid,
+  .modalTimeline,
   .summaryList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1032,6 +1206,8 @@
   .timeline,
   .addOnTable,
   .boundaryText,
+  .modalGrid,
+  .modalTimeline,
   .summaryList {
     grid-template-columns: 1fr;
   }
@@ -1080,5 +1256,31 @@
 
   .composition {
     grid-template-columns: 1fr;
+  }
+
+  .modalBackdrop {
+    align-items: start;
+    padding: 12px;
+  }
+
+  .workflowModal {
+    max-height: none;
+  }
+
+  .modalHeader,
+  .modalIntro {
+    grid-template-columns: 1fr;
+  }
+
+  .modalHeader {
+    position: static;
+  }
+
+  .modalHeader h2 {
+    font-size: 34px;
+  }
+
+  .modalIntro p {
+    font-size: 15px;
   }
 }

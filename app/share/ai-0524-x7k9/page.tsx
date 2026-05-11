@@ -276,7 +276,28 @@ const summaryItems = [
   "如果希望更持续地推进，并让业务团队获得更多线下复盘和专题辅导，可选择方案 3",
 ];
 
-const workflowPagePath = "/share/ai-workflow-customization-x7k9";
+const workflowDeliverables = [
+  ["场景诊断", "明确某个团队最适合用 AI 介入的任务、输入素材、判断标准和不适合 AI 处理的边界"],
+  ["工具链组合", "根据图片、视频、文字、参考图、一致性控制等需求选择工具组合，而不是只讲单个工具"],
+  ["模板沉淀", "沉淀 Prompt 结构、参考图规范、命名方式、素材输入要求和结果检查清单"],
+  ["SOP 共创", "把从 brief 到生成、筛选、复盘、二次修改的步骤整理成团队可执行的方法"],
+  ["案例验证", "用少量真实业务样例跑一轮，判断流程是否可用，并根据结果调整模板和 SOP"],
+  ["团队交接", "把方法交给业务团队和负责人，让内部后续可以持续使用，而不是完全依赖外部老师"],
+];
+
+const workflowPhases = [
+  ["01", "先选场景", "建议从 1 到 2 个高频、价值明确、容易验证的业务场景开始"],
+  ["02", "共创流程", "围绕真实 brief、素材输入、质量标准和审批链路设计 AI 介入方式"],
+  ["03", "样例验证", "用真实业务样例跑一轮，看效率、可控性、品牌一致性和复用难度"],
+  ["04", "文档交接", "沉淀 SOP、Prompt 模板、参考图规范、检查清单和团队使用建议"],
+];
+
+const workflowBoundaries = [
+  "不包含在当前 42,000 / 58,000 / 88,000 元培训与辅导方案内",
+  "不承诺替 DR 批量生产正式商用素材，重点是共创方法和验证流程",
+  "如涉及部门 SOP、工具链模板、案例验证和项目陪跑，需要根据团队数量、场景复杂度和交付深度单独报价",
+  "DR 内部账号订阅、批量生成算力、商用素材授权、上线投放和法务合规仍由 DR 自行负责",
+];
 
 function formatPrice(value: number) {
   return `¥${yuan.format(value)}`;
@@ -310,6 +331,7 @@ function App() {
   const [selectedPlanId, setSelectedPlanId] = useState<PlanId>("growth");
   const [addons, setAddons] = useState<Partial<Record<ServiceId, number>>>({});
   const [copied, setCopied] = useState(false);
+  const [workflowOpen, setWorkflowOpen] = useState(false);
 
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[1];
   const isCustomPlan = selectedPlan.id === "custom";
@@ -393,7 +415,8 @@ function App() {
   };
 
   return (
-    <main className={styles.page}>
+    <>
+      <main className={styles.page}>
       <header className={styles.header}>
         <a href="/" className={styles.brand} aria-label="返回晨然主页">
           晨然
@@ -773,7 +796,9 @@ function App() {
               如果后续希望为产品中心、电商、传播或视觉团队搭建固定 AI 生产流程，包括 SOP、Prompt 模板、参考图规范、工具链组合、案例验证和项目陪跑，可作为独立的工作流共创项目单独评估报价和周期。
             </p>
           </div>
-          <a href={workflowPagePath}>查看工作流定制说明</a>
+          <button type="button" onClick={() => setWorkflowOpen(true)}>
+            查看工作流定制说明
+          </button>
         </div>
       </section>
 
@@ -791,7 +816,71 @@ function App() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+
+      {workflowOpen ? (
+        <div className={styles.modalBackdrop} onClick={() => setWorkflowOpen(false)}>
+          <section
+            aria-labelledby="workflow-modal-title"
+            aria-modal="true"
+            className={styles.workflowModal}
+            role="dialog"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <div>
+                <p>高级服务说明</p>
+                <h2 id="workflow-modal-title">AI 工作流定制共创服务</h2>
+              </div>
+              <button type="button" aria-label="关闭工作流定制说明" onClick={() => setWorkflowOpen(false)}>
+                关闭
+              </button>
+            </div>
+
+            <div className={styles.modalIntro}>
+              <strong>这是培训与应用辅导之外的高级服务</strong>
+              <p>
+                如果 DR 后续希望不只是让成员学会使用 AI，而是为某个团队沉淀固定生产流程、工具链、SOP、Prompt 模板和案例验证机制，可以把工作流定制作为独立项目单独评估。
+              </p>
+            </div>
+
+            <div className={styles.modalBlock}>
+              <h3>可以交付什么</h3>
+              <div className={styles.modalGrid}>
+                {workflowDeliverables.map(([title, body]) => (
+                  <article key={title}>
+                    <h4>{title}</h4>
+                    <p>{body}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.modalBlock}>
+              <h3>推进方式</h3>
+              <div className={styles.modalTimeline}>
+                {workflowPhases.map(([step, title, body]) => (
+                  <article key={step}>
+                    <span>{step}</span>
+                    <h4>{title}</h4>
+                    <p>{body}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.modalBoundary}>
+              <h3>需要单独评估报价和周期</h3>
+              <ul>
+                {workflowBoundaries.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
+      ) : null}
+    </>
   );
 }
 
