@@ -31,6 +31,8 @@ type Plan = {
   included: Partial<Record<ServiceId, number>>;
 };
 
+type DiscountPresetId = "starter" | "growth" | "system";
+
 const yuan = new Intl.NumberFormat("zh-CN");
 
 const services: Service[] = [
@@ -140,7 +142,7 @@ const plans: Plan[] = [
   {
     id: "custom",
     title: "自由组合",
-    subtitle: "按 DR 实际预算和团队范围自行加购",
+    subtitle: "按实际预算和团队范围自行加购",
     price: 0,
     listPrice: 0,
     bestFor: "适合先确认预算，再从标准单项服务里组合",
@@ -148,6 +150,12 @@ const plans: Plan[] = [
     online: ["可从 D / E 中选择线上服务"],
     included: {},
   },
+];
+
+const discountPresets: Array<{ id: DiscountPresetId; title: string; rate: number; note: string }> = [
+  { id: "starter", title: "按方案一", rate: 0.84, note: "适合轻量组合" },
+  { id: "growth", title: "按方案二", rate: 0.83, note: "适合 1 个月组合" },
+  { id: "system", title: "按方案三", rate: 0.76, note: "适合更完整组合" },
 ];
 
 const audiences = [
@@ -158,20 +166,44 @@ const audiences = [
 ];
 
 const coursePlan = [
-  ["Day 1", "AI 企业应用综述", "统一认知，理解 AI 能做什么、不能做什么、如何进入业务流程"],
-  ["Day 2", "图片生成与视觉表达", "围绕平面、电商头图、空间陈列和社媒素材做案例化实操"],
-  ["Day 3", "视频生成与故事表达", "从 brief、脚本、分镜到生成结果判断，服务社媒与电商视频需求"],
-  ["Day 4", "进阶提示词与多工具协作", "把单点工具使用升级为可复用的创作方法和判断标准"],
-  ["Day 5", "团队场景演练与复盘", "用 DR 自己的真实任务做拆解、生成、点评和下一步建议"],
+  ["第 1 天", "AI 企业应用综述", "统一认知，理解 AI 能做什么、不能做什么、如何进入业务流程"],
+  ["第 2 天", "图片生成与视觉表达", "围绕平面、电商头图、空间陈列和社媒素材做案例化实操"],
+  ["第 3 天", "视频生成与故事表达", "从业务需求、脚本、分镜到生成结果判断，服务社媒与电商视频需求"],
+  ["第 4 天", "进阶提示词与多工具协作", "把单点工具使用升级为可复用的创作方法和判断标准"],
+  ["第 5 天", "团队场景演练与复盘", "用 DR 自己的真实任务做拆解、生成、点评和下一步建议"],
 ];
 
-const principles = [
-  "目标不是替 DR 定制一套固定工作流，而是让成员具备把 AI 应用到自己岗位里的能力",
-  "课程安排为拟定版本，最终可根据 DR 团队优先级和素材准备情况调整",
-  "课堂演示和培训中必要的 AI 工具订阅、生成算力与素材测试成本由晨然承担",
-  "DR 自行大规模生产、内部账号订阅、商用素材授权及上线投放成本由 DR 承担",
-  "线上答疑需要固定时间集中处理，不提供全天候即时响应",
-  "如需定制工作流、内部工具模板、部门 SOP 或长期陪跑交付，需单独重新评估报价",
+const boundarySections = [
+  {
+    title: "合作目标",
+    body:
+      "本次合作不是单纯购买课时，也不是替团队定制一套固定工作流，而是帮助视觉、社媒、产品、电商等岗位成员建立可迁移的 AI 应用能力。课程会用真实业务场景讲解，让成员知道什么时候该用 AI、怎么拆需求、怎么判断结果、下一轮如何调整。",
+  },
+  {
+    title: "课程内容",
+    body:
+      "5 天现场课程为拟定版本，包含 AI 企业应用综述、图片生成、视频生成、进阶提示词、多工具协作和团队场景演练。最终内容可以根据团队优先级、素材准备情况和现场反馈做调整，尽量让一次线下覆盖更多团队共性问题。",
+  },
+  {
+    title: "线上答疑",
+    body:
+      "线上课后答疑主要在微信群进行，需要固定时间集中处理，建议每周 2 次，每次约 1 小时。答疑用于解决课后工具使用、提示词、生成失败、作业推进等轻量问题，不等同于全天候即时咨询，也不等同于定制工作流交付。",
+  },
+  {
+    title: "追加线下",
+    body:
+      "如后续需要继续线下推进，建议按 3 天或 5 天集中安排，尽量避免零散半天往返。追加线下专题辅导日按整天资源占用核算，上午可做专题授课，下午可用于团队案例拆解、结果点评和下一轮任务布置。",
+  },
+  {
+    title: "费用边界",
+    body:
+      "课堂演示和培训中必要的 AI 工具订阅、生成算力与素材测试成本由晨然承担。线下服务的机酒和市内交通差旅另计。DR 自行大规模生产、内部账号订阅、商用素材授权、上线投放和正式生产成本由 DR 承担。",
+  },
+  {
+    title: "另行报价",
+    body:
+      "如果后续需要定制部门工作流、内部工具模板、标准提示词库、SOP 文档、长期项目陪跑或直接参与具体项目产出，这部分会显著增加准备和交付成本，需要在现有培训与辅导包之外重新评估报价。",
+  },
 ];
 
 function formatPrice(value: number) {
@@ -197,12 +229,23 @@ function getPlanDiscount(plan: Plan) {
   return `${Math.round((plan.price / plan.listPrice) * 100) / 10} 折`;
 }
 
+function getSavingsLabel(plan: Plan) {
+  if (!plan.listPrice) return "";
+  return `省 ${formatPrice(plan.listPrice - plan.price)}`;
+}
+
+function roundQuote(value: number) {
+  return Math.round(value / 100) * 100;
+}
+
 function App() {
   const [selectedPlanId, setSelectedPlanId] = useState<PlanId>("growth");
+  const [customDiscountId, setCustomDiscountId] = useState<DiscountPresetId>("growth");
   const [addons, setAddons] = useState<Partial<Record<ServiceId, number>>>({});
   const [copied, setCopied] = useState(false);
 
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[1];
+  const customDiscount = discountPresets.find((preset) => preset.id === customDiscountId) ?? discountPresets[1];
 
   const totals = useMemo(() => {
     const addonRows = services
@@ -222,7 +265,8 @@ function App() {
     const addonListPrice = addonRows.reduce((sum, row) => sum + row.listPrice, 0);
     const addonPrice = addonRows.reduce((sum, row) => sum + row.price, 0);
     const listPrice = selectedPlan.listPrice + addonListPrice;
-    const price = selectedPlan.price + addonPrice;
+    const price =
+      selectedPlan.id === "custom" ? roundQuote(addonListPrice * customDiscount.rate) : selectedPlan.price + addonPrice;
     const savings = Math.max(0, listPrice - price);
     const discount = listPrice > 0 ? `${Math.round((price / listPrice) * 100) / 10} 折` : "待组合";
 
@@ -233,7 +277,7 @@ function App() {
       savings,
       discount,
     };
-  }, [addons, selectedPlan]);
+  }, [addons, customDiscount, selectedPlan]);
 
   const updateAddon = (serviceId: ServiceId, nextQuantity: number) => {
     const service = serviceMap[serviceId];
@@ -261,7 +305,10 @@ function App() {
     "线上内容：",
     ...selectedPlan.online.map((item) => `- ${item}`),
     totals.addonRows.length ? "追加服务：" : "追加服务：暂不追加",
-    ...totals.addonRows.map((row) => `- ${row.service.code} ${row.service.title} × ${row.quantity}，${formatPrice(row.price)}`),
+    ...totals.addonRows.map((row) => {
+      const linePrice = selectedPlan.id === "custom" ? row.listPrice : row.price;
+      return `- ${row.service.code} ${row.service.title} × ${row.quantity}，${formatPrice(linePrice)}`;
+    }),
     "差旅说明：线下服务差旅另计",
   ].join("\n");
 
@@ -278,8 +325,8 @@ function App() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <a href="/" className={styles.brand} aria-label="返回晨然主页">
-          CHENRAN NING
+          <a href="/" className={styles.brand} aria-label="返回晨然主页">
+          晨然
         </a>
         <nav aria-label="DR AI 方案导航">
           <a href="#audience">受众</a>
@@ -291,7 +338,7 @@ function App() {
 
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>DR AI ENABLEMENT PACKAGE</p>
+          <p className={styles.eyebrow}>AI 企业应用合作方案</p>
           <h1>DR AI 企业转型合作方案</h1>
           <p className={styles.lede}>
             以 5 天现场启动营为核心，叠加固定线上答疑、线上应用辅导课和可追加的线下专题辅导，帮助 DR 多团队真正把 AI 用进日常业务
@@ -307,7 +354,7 @@ function App() {
         </div>
         <figure className={styles.heroVisual}>
           <img src="/assets/dr-ai-quote-system.svg" alt="DR AI 企业应用系统图" />
-          <figcaption>Training, application, follow-up and expansion</figcaption>
+          <figcaption>现场启动、课后答疑、应用辅导与后续扩展</figcaption>
         </figure>
       </section>
 
@@ -399,7 +446,7 @@ function App() {
 
       <section className={styles.quoteSection} id="quote">
         <div className={styles.quoteIntro}>
-          <p className={styles.eyebrow}>INTERACTIVE QUOTE</p>
+          <p className={styles.eyebrow}>交互式报价</p>
           <h2>选择组合包，或继续加购服务</h2>
           <p>
             组合越完整，折扣越高。方案三之后也可以继续自由组合，尤其是追加线下服务时，建议尽量按 3 天或 5 天集中安排
@@ -420,7 +467,16 @@ function App() {
                   <h3>{plan.title}</h3>
                   <p>{plan.subtitle}</p>
                 </div>
-                <strong>{plan.price ? formatPrice(plan.price) : "按组合计算"}</strong>
+                <div className={styles.planPriceLine}>
+                  <strong>{plan.price ? formatPrice(plan.price) : "按组合计算"}</strong>
+                  {plan.price ? (
+                    <em>
+                      {getSavingsLabel(plan)} · {getPlanDiscount(plan)}
+                    </em>
+                  ) : (
+                    <em>可选择折扣系数</em>
+                  )}
+                </div>
               </button>
             ))}
           </div>
@@ -430,6 +486,28 @@ function App() {
               <h3>加购服务</h3>
               <p>可在当前方案上继续追加，或选择自由组合后从 0 开始搭配</p>
             </div>
+            {selectedPlan.id === "custom" ? (
+              <div className={styles.discountChooser}>
+                <div>
+                  <h4>自由组合折扣系数</h4>
+                  <p>可按方案一、方案二或方案三的折扣力度计算，让组合报价也有明确折扣逻辑</p>
+                </div>
+                <div className={styles.discountButtons}>
+                  {discountPresets.map((preset) => (
+                    <button
+                      className={customDiscount.id === preset.id ? styles.activeDiscount : ""}
+                      key={preset.id}
+                      type="button"
+                      onClick={() => setCustomDiscountId(preset.id)}
+                    >
+                      <strong>{preset.title}</strong>
+                      <span>{Math.round(preset.rate * 100) / 10} 折</span>
+                      <small>{preset.note}</small>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <div className={styles.addonList}>
               {services.map((service) => {
                 const quantity = addons[service.id] ?? 0;
@@ -506,7 +584,7 @@ function App() {
                       <span>
                         {row.service.code} × {row.quantity}
                       </span>
-                      <strong>{formatPrice(row.price)}</strong>
+                      <strong>{formatPrice(selectedPlan.id === "custom" ? row.listPrice : row.price)}</strong>
                     </p>
                   ))}
                 </div>
@@ -523,9 +601,12 @@ function App() {
                   <span>折扣节省</span>
                   <strong>{totals.savings ? formatPrice(totals.savings) : "-"}</strong>
                 </p>
-                <p>
+                <p className={styles.finalPriceRow}>
                   <span>折后报价</span>
-                  <strong>{totals.price ? formatPrice(totals.price) : "待组合"}</strong>
+                  <strong>
+                    {totals.price ? formatPrice(totals.price) : "待组合"}
+                    {totals.price ? <em>{totals.discount}</em> : null}
+                  </strong>
                 </p>
                 <p>
                   <span>折扣</span>
@@ -546,9 +627,12 @@ function App() {
           <span>04</span>
           <p>合作边界</p>
         </div>
-        <div className={styles.boundaryGrid}>
-          {principles.map((item) => (
-            <p key={item}>{item}</p>
+        <div className={styles.boundaryText}>
+          {boundarySections.map((section) => (
+            <article key={section.title}>
+              <h3>{section.title}</h3>
+              <p>{section.body}</p>
+            </article>
           ))}
         </div>
       </section>

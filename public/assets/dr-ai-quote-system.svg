@@ -7,11 +7,11 @@
   <circle cx="600" cy="620" r="62" fill="#D9FF6B"/>
   <text x="600" y="606" text-anchor="middle" fill="#080806" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="900">DR</text>
   <text x="600" y="638" text-anchor="middle" fill="#080806" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="900">AI</text>
-  <g font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="24" fill="#F3EEE4">
-    <text x="158" y="250">VISUAL</text>
-    <text x="840" y="290">SOCIAL</text>
-    <text x="130" y="1018">PRODUCT</text>
-    <text x="844" y="1074">ECOMMERCE</text>
+  <g font-family="PingFang SC, Arial, Helvetica, sans-serif" font-weight="900" font-size="26" fill="#F3EEE4">
+    <text x="158" y="250">视觉部</text>
+    <text x="840" y="290">社媒团队</text>
+    <text x="130" y="1018">产品团队</text>
+    <text x="844" y="1074">电商团队</text>
   </g>
   <g stroke="#F3EEE4" stroke-opacity="0.42">
     <path d="M268 260L487 505"/>
@@ -25,11 +25,11 @@
     <rect x="112" y="950" width="300" height="130" stroke="#F3EEE4" stroke-opacity="0.36"/>
     <rect x="800" y="1010" width="280" height="130" stroke="#F3EEE4" stroke-opacity="0.36"/>
   </g>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#A8B3AC">
-    <text x="158" y="286">IMAGE · VIDEO · SPACE</text>
-    <text x="840" y="326">STORY · SCRIPT · POST</text>
-    <text x="130" y="1054">CONCEPT · DEMO · PROTOTYPE</text>
-    <text x="844" y="1110">HERO IMAGE · SHORT VIDEO</text>
+  <g font-family="PingFang SC, Arial, Helvetica, sans-serif" font-size="18" fill="#A8B3AC">
+    <text x="158" y="286">图片 · 视频 · 空间陈列</text>
+    <text x="840" y="326">故事 · 脚本 · 内容发布</text>
+    <text x="130" y="1054">创意 · 样片 · 概念表达</text>
+    <text x="844" y="1110">头图 · 套图 · 短视频</text>
   </g>
   <g stroke="#D9FF6B" stroke-width="2">
     <path d="M160 735H1040"/>
@@ -40,13 +40,13 @@
     <path d="M820 735V850"/>
     <path d="M1040 735V850"/>
   </g>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="900" fill="#D9FF6B">
-    <text x="184" y="804">TRAINING</text>
-    <text x="414" y="804">PRACTICE</text>
-    <text x="636" y="804">FOLLOW UP</text>
-    <text x="858" y="804">EXPAND</text>
+  <g font-family="PingFang SC, Arial, Helvetica, sans-serif" font-size="22" font-weight="900" fill="#D9FF6B">
+    <text x="184" y="804">现场启动</text>
+    <text x="414" y="804">业务实操</text>
+    <text x="636" y="804">课后答疑</text>
+    <text x="858" y="804">后续扩展</text>
   </g>
-  <text x="72" y="95" fill="#F3EEE4" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="900">DR AI APPLICATION</text>
-  <text x="72" y="150" fill="#F3EEE4" fill-opacity="0.65" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900">ENABLEMENT SYSTEM</text>
-  <text x="72" y="1290" fill="#A8B3AC" font-family="Arial, Helvetica, sans-serif" font-size="22">5-DAY ONSITE BOOTCAMP · ONLINE OFFICE HOURS · APPLICATION CLASSES · ONSITE EXPANSION</text>
+  <text x="72" y="95" fill="#F3EEE4" font-family="PingFang SC, Arial, Helvetica, sans-serif" font-size="56" font-weight="900">AI 企业应用</text>
+  <text x="72" y="150" fill="#F3EEE4" fill-opacity="0.65" font-family="PingFang SC, Arial, Helvetica, sans-serif" font-size="38" font-weight="900">能力启动系统</text>
+  <text x="72" y="1290" fill="#A8B3AC" font-family="PingFang SC, Arial, Helvetica, sans-serif" font-size="22">5 天现场启动 · 固定线上答疑 · 应用辅导课 · 追加线下扩展</text>
 </svg>
