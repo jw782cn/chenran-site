@@ -44,17 +44,18 @@
 }
 
 .hero {
-  min-height: 100svh;
+  min-height: calc(100svh - 58px);
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.72fr);
-  gap: 28px;
-  align-items: end;
-  padding: 112px 16px 18px;
+  gap: 24px;
+  align-items: stretch;
+  padding: 74px 16px 16px;
 }
 
 .heroCopy {
   max-width: 950px;
-  align-self: center;
+  align-self: start;
+  padding-top: 20px;
 }
 
 .eyebrow {
@@ -112,7 +113,7 @@
 }
 
 .heroVisual {
-  min-height: 68vh;
+  min-height: 0;
   margin: 0;
   border: 1px solid rgba(243, 238, 228, 0.36);
   background: linear-gradient(145deg, rgba(217, 255, 107, 0.08), rgba(185, 195, 194, 0.08));
@@ -121,7 +122,7 @@
 
 .heroVisual img {
   width: 100%;
-  height: calc(68vh - 42px);
+  height: calc(100% - 40px);
   object-fit: cover;
 }
 
@@ -1134,7 +1135,7 @@
   }
 
   .heroVisual img {
-    height: 420px;
+    height: calc(100% - 40px);
   }
 
   .metrics,
@@ -1181,17 +1182,23 @@
 
   .header nav {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .header nav a {
     border-bottom: 1px solid rgba(243, 238, 228, 0.18);
-    font-size: 11px;
+    justify-content: center;
+    padding: 0 8px;
+    font-size: 10px;
   }
 
   .hero {
     min-height: auto;
-    padding: 42px 12px 12px;
+    padding: 24px 12px 12px;
+  }
+
+  .heroCopy {
+    padding-top: 0;
   }
 
   .hero h1 {
@@ -1201,6 +1208,7 @@
 
   .heroActions {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .heroVisual {
@@ -1208,7 +1216,7 @@
   }
 
   .heroVisual img {
-    height: 300px;
+    height: 220px;
   }
 
   .metrics,
