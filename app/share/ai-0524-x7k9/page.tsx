@@ -31,8 +31,6 @@ type Plan = {
   included: Partial<Record<ServiceId, number>>;
 };
 
-type DiscountPresetId = "starter" | "growth" | "system";
-
 const yuan = new Intl.NumberFormat("zh-CN");
 
 const services: Service[] = [
@@ -152,12 +150,6 @@ const plans: Plan[] = [
   },
 ];
 
-const discountPresets: Array<{ id: DiscountPresetId; title: string; rate: number; note: string }> = [
-  { id: "starter", title: "按方案一", rate: 0.84, note: "适合轻量组合" },
-  { id: "growth", title: "按方案二", rate: 0.83, note: "适合 1 个月组合" },
-  { id: "system", title: "按方案三", rate: 0.76, note: "适合更完整组合" },
-];
-
 const audiences = [
   ["视觉部", "平面、视频、空间陈列", "图片生成、视频辅助、陈列概念、视觉风格探索"],
   ["社媒团队", "社媒故事片、传播内容", "选题拆解、故事脚本、视频分镜、内容变体"],
@@ -226,26 +218,21 @@ function getServicePrice(service: Service, quantity: number) {
 
 function getPlanDiscount(plan: Plan) {
   if (!plan.listPrice) return "自由组合";
-  return `${Math.round((plan.price / plan.listPrice) * 100) / 10} 折`;
+  return `约 ${Math.round((plan.price / plan.listPrice) * 100) / 10} 折`;
 }
 
 function getSavingsLabel(plan: Plan) {
   if (!plan.listPrice) return "";
-  return `省 ${formatPrice(plan.listPrice - plan.price)}`;
-}
-
-function roundQuote(value: number) {
-  return Math.round(value / 100) * 100;
+  return `预估省 ${formatPrice(plan.listPrice - plan.price)}`;
 }
 
 function App() {
   const [selectedPlanId, setSelectedPlanId] = useState<PlanId>("growth");
-  const [customDiscountId, setCustomDiscountId] = useState<DiscountPresetId>("growth");
   const [addons, setAddons] = useState<Partial<Record<ServiceId, number>>>({});
   const [copied, setCopied] = useState(false);
 
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[1];
-  const customDiscount = discountPresets.find((preset) => preset.id === customDiscountId) ?? discountPresets[1];
+  const isCustomPlan = selectedPlan.id === "custom";
 
   const totals = useMemo(() => {
     const addonRows = services
@@ -265,8 +252,7 @@ function App() {
     const addonListPrice = addonRows.reduce((sum, row) => sum + row.listPrice, 0);
     const addonPrice = addonRows.reduce((sum, row) => sum + row.price, 0);
     const listPrice = selectedPlan.listPrice + addonListPrice;
-    const price =
-      selectedPlan.id === "custom" ? roundQuote(addonListPrice * customDiscount.rate) : selectedPlan.price + addonPrice;
+    const price = selectedPlan.id === "custom" ? addonListPrice : selectedPlan.price + addonPrice;
     const savings = Math.max(0, listPrice - price);
     const discount = listPrice > 0 ? `${Math.round((price / listPrice) * 100) / 10} 折` : "待组合";
 
@@ -277,7 +263,7 @@ function App() {
       savings,
       discount,
     };
-  }, [addons, customDiscount, selectedPlan]);
+  }, [addons, selectedPlan]);
 
   const updateAddon = (serviceId: ServiceId, nextQuantity: number) => {
     const service = serviceMap[serviceId];
@@ -298,8 +284,12 @@ function App() {
 
   const checkoutText = [
     `DR AI 企业转型合作方案：${selectedPlan.title}`,
-    `组合报价：${formatPrice(totals.price)}`,
-    totals.listPrice ? `标准合计：${formatPrice(totals.listPrice)}，折扣后约 ${totals.discount}` : "标准合计：待组合",
+    isCustomPlan ? `当前标准合计：${totals.price ? formatPrice(totals.price) : "待组合"}` : `预估报价：${formatPrice(totals.price)}`,
+    totals.listPrice
+      ? isCustomPlan
+        ? `标准合计：${formatPrice(totals.listPrice)}，具体优惠细节面聊确认`
+        : `标准合计：${formatPrice(totals.listPrice)}，预估约 ${totals.discount}`
+      : "标准合计：待组合",
     "线下内容：",
     ...selectedPlan.onsite.map((item) => `- ${item}`),
     "线上内容：",
@@ -325,7 +315,7 @@ function App() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-          <a href="/" className={styles.brand} aria-label="返回晨然主页">
+        <a href="/" className={styles.brand} aria-label="返回晨然主页">
           晨然
         </a>
         <nav aria-label="DR AI 方案导航">
@@ -449,7 +439,7 @@ function App() {
           <p className={styles.eyebrow}>交互式报价</p>
           <h2>选择组合包，或继续加购服务</h2>
           <p>
-            组合越完整，折扣越高。方案三之后也可以继续自由组合，尤其是追加线下服务时，建议尽量按 3 天或 5 天集中安排
+            页面展示的是预估报价与预估优惠空间。具体服务组合、优惠细节和差旅安排，会在面聊时一起确认
           </p>
         </div>
 
@@ -474,7 +464,7 @@ function App() {
                       {getSavingsLabel(plan)} · {getPlanDiscount(plan)}
                     </em>
                   ) : (
-                    <em>可选择折扣系数</em>
+                    <em>优惠细节面聊确认</em>
                   )}
                 </div>
               </button>
@@ -484,30 +474,8 @@ function App() {
           <div className={styles.addonPanel}>
             <div className={styles.panelHeader}>
               <h3>加购服务</h3>
-              <p>可在当前方案上继续追加，或选择自由组合后从 0 开始搭配</p>
+              <p>可在当前方案上继续追加，或选择自由组合后从 0 开始搭配。自由组合先计算标准合计，具体优惠面聊确认</p>
             </div>
-            {selectedPlan.id === "custom" ? (
-              <div className={styles.discountChooser}>
-                <div>
-                  <h4>自由组合折扣系数</h4>
-                  <p>可按方案一、方案二或方案三的折扣力度计算，让组合报价也有明确折扣逻辑</p>
-                </div>
-                <div className={styles.discountButtons}>
-                  {discountPresets.map((preset) => (
-                    <button
-                      className={customDiscount.id === preset.id ? styles.activeDiscount : ""}
-                      key={preset.id}
-                      type="button"
-                      onClick={() => setCustomDiscountId(preset.id)}
-                    >
-                      <strong>{preset.title}</strong>
-                      <span>{Math.round(preset.rate * 100) / 10} 折</span>
-                      <small>{preset.note}</small>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : null}
             <div className={styles.addonList}>
               {services.map((service) => {
                 const quantity = addons[service.id] ?? 0;
@@ -598,21 +566,21 @@ function App() {
                   <strong>{totals.listPrice ? formatPrice(totals.listPrice) : "待组合"}</strong>
                 </p>
                 <p>
-                  <span>折扣节省</span>
-                  <strong>{totals.savings ? formatPrice(totals.savings) : "-"}</strong>
+                  <span>{isCustomPlan ? "预估优惠" : "预估节省"}</span>
+                  <strong>{isCustomPlan ? "面聊确认" : totals.savings ? formatPrice(totals.savings) : "-"}</strong>
                 </p>
                 <p className={styles.finalPriceRow}>
-                  <span>折后报价</span>
+                  <span>{isCustomPlan ? "当前标准合计" : "预估报价"}</span>
                   <strong>
                     {totals.price ? formatPrice(totals.price) : "待组合"}
-                    {totals.price ? <em>{totals.discount}</em> : null}
+                    {totals.price ? <em>{isCustomPlan ? "优惠面聊确认" : totals.discount}</em> : null}
                   </strong>
                 </p>
-                <p>
-                  <span>折扣</span>
-                  <strong>{totals.discount}</strong>
-                </p>
               </div>
+
+              <p className={styles.quoteNote}>
+                以上为预估口径，具体服务组合、优惠细节与差旅安排以面聊确认版本为准
+              </p>
 
               <button type="button" className={styles.copyButton} onClick={copyCheckout}>
                 {copied ? "已复制方案摘要" : "复制方案摘要"}

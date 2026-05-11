@@ -488,72 +488,6 @@
   gap: 10px;
 }
 
-.discountChooser {
-  display: grid;
-  gap: 14px;
-  border: 1px solid rgba(217, 255, 107, 0.36);
-  margin-bottom: 14px;
-  padding: 14px;
-}
-
-.discountChooser h4 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  line-height: 1;
-}
-
-.discountChooser p {
-  margin: 0;
-  color: #a8b3ac;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.discountButtons {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.discountButtons button {
-  display: grid;
-  gap: 6px;
-  border: 1px solid rgba(243, 238, 228, 0.22);
-  padding: 10px;
-  color: #f3eee4;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-}
-
-.discountButtons strong,
-.discountButtons span,
-.discountButtons small {
-  display: block;
-}
-
-.discountButtons strong {
-  font-size: 13px;
-}
-
-.discountButtons span {
-  color: #d9ff6b;
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.discountButtons small {
-  color: #a8b3ac;
-  font-size: 11px;
-  line-height: 1.3;
-}
-
-.discountButtons .activeDiscount {
-  border-color: #d9ff6b;
-  background: rgba(217, 255, 107, 0.12);
-}
-
 .addonRow {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 104px;
@@ -740,6 +674,13 @@
   font-weight: 900;
 }
 
+.quoteNote {
+  margin: 12px 0 0;
+  color: #a8b3ac;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .copyButton {
   width: 100%;
   margin-top: 14px;
@@ -845,8 +786,7 @@
   .metrics,
   .audienceGrid,
   .timeline,
-  .boundaryText,
-  .discountButtons {
+  .boundaryText {
     grid-template-columns: 1fr;
   }
 
