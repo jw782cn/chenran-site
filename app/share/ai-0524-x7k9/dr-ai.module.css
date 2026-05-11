@@ -218,6 +218,46 @@
   font-size: 14px;
 }
 
+.valueLead {
+  max-width: 1080px;
+  margin: 0 0 24px;
+  color: #f3eee4;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.valueGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.valueGrid article {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(217, 255, 107, 0.34);
+  background: rgba(217, 255, 107, 0.05);
+  padding: 16px;
+}
+
+.valueGrid h3 {
+  margin: 0 0 32px;
+  color: #d9ff6b;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.valueGrid p {
+  margin: 0;
+  color: #d6d1c7;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .audienceGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -843,6 +883,45 @@
   line-height: 1;
 }
 
+.workflowCta {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: end;
+  border: 1px solid rgba(217, 255, 107, 0.38);
+  margin-top: 18px;
+  padding: 18px;
+}
+
+.workflowCta h3 {
+  margin: 0 0 10px;
+  color: #d9ff6b;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.workflowCta p {
+  margin: 0;
+  color: #d6d1c7;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.workflowCta a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9ff6b;
+  padding: 0 14px;
+  color: #080806;
+  background: #d9ff6b;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 .summaryList {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -876,6 +955,7 @@
   }
 
   .metrics,
+  .valueGrid,
   .audienceGrid,
   .timeline,
   .addOnTable,
@@ -884,8 +964,17 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .exclusionPanel {
+  .exclusionPanel,
+  .workflowCta {
     grid-column: 1 / -1;
+  }
+
+  .workflowCta {
+    grid-template-columns: 1fr;
+  }
+
+  .valueLead {
+    font-size: 20px;
   }
 
   .cartSticky {
@@ -938,6 +1027,7 @@
   }
 
   .metrics,
+  .valueGrid,
   .audienceGrid,
   .timeline,
   .addOnTable,
@@ -956,6 +1046,10 @@
   .quoteIntro h2 {
     font-size: 38px;
     line-height: 1;
+  }
+
+  .valueLead {
+    font-size: 18px;
   }
 
   .audienceCard,
