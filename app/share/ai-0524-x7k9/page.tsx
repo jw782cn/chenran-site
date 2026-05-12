@@ -32,6 +32,9 @@ type Plan = {
 };
 
 const yuan = new Intl.NumberFormat("zh-CN");
+const roundTripFlightBudget = 2400;
+const hotelNightBudget = 450;
+const starterTripNights = 5;
 
 const services: Service[] = [
   {
@@ -220,10 +223,10 @@ const planDetails = [
 ];
 
 const addOnMechanisms = [
-  ["追加 1 个线下工作日", "12,000 元 + 差旅", "按所选方案折扣计算", "适合单次专题加深或集中复盘，现场服务合计不超过 5 小时"],
-  ["连续追加 2 个线下工作日", "24,000 元 + 差旅", "按所选方案折扣计算", "适合覆盖 2 个专题或多个团队集中复盘"],
-  ["连续追加 3 个线下工作日", "36,000 元 + 差旅", "按所选方案折扣计算", "适合做阶段性集中辅导、跨团队案例诊断和管理层复盘"],
-  ["追加 1 期线下 AI 启动营", "38,000 元 + 差旅", "可结合其他服务另行组合", "适合新一批成员或新增团队系统学习，默认连续 5 个半天"],
+  ["追加 1 个线下工作日", "12,000 元服务费 + 2,850 元差旅", "服务费按所选方案折扣 + 2,850 元差旅", "适合单次专题加深或集中复盘，现场服务合计不超过 5 小时"],
+  ["连续追加 2 个线下工作日", "24,000 元服务费 + 3,300 元差旅", "服务费按所选方案折扣 + 3,300 元差旅", "适合覆盖 2 个专题或多个团队集中复盘"],
+  ["连续追加 3 个线下工作日", "36,000 元服务费 + 3,750 元差旅", "服务费按所选方案折扣 + 3,750 元差旅", "适合做阶段性集中辅导、跨团队案例诊断和管理层复盘"],
+  ["追加 1 期线下 AI 启动营", "38,000 元服务费 + 4,650 元差旅", "可结合其他服务另行组合", "适合新一批成员或新增团队系统学习，默认连续 5 个半天"],
 ];
 
 const excludedItems = [
@@ -232,7 +235,7 @@ const excludedItems = [
   "对具体项目进行无限陪产和无限改稿",
   "非固定会议时间的随时响应",
   "法务、版权、广告合规背书",
-  "差旅、住宿等线下执行成本",
+  "超出已确认线下行程之外的临时差旅成本",
 ];
 
 const boundarySections = [
@@ -259,7 +262,7 @@ const boundarySections = [
   {
     title: "费用边界",
     body:
-      "课堂演示和培训中必要的 AI 工具订阅、生成算力与素材测试成本由晨然承担。线下服务的机酒和市内交通差旅另计。DR 自行大规模生产、内部账号订阅、商用素材授权、上线投放和正式生产成本由 DR 承担。",
+      "课堂演示和培训中必要的 AI 工具订阅、生成算力与素材测试成本由晨然承担。线下服务差旅已按上海往返深圳机票 2,400 元、酒店 450 元 / 晚计入预估总报价，超出双方确认行程之外的临时差旅另行确认。DR 自行大规模生产、内部账号订阅、商用素材授权、上线投放和正式生产成本由 DR 承担。",
   },
   {
     title: "另行报价",
@@ -291,7 +294,7 @@ const workflowPhases = [
 ];
 
 const workflowBoundaries = [
-  "不包含在当前 42,000 / 58,000 / 88,000 元培训与辅导方案内",
+  "不包含在当前培训与辅导方案报价内",
   "不承诺替 DR 批量生产正式商用素材，重点是共创方法和验证流程",
   "如涉及部门 SOP、工具链模板、案例验证和项目陪跑，需要根据团队数量、场景复杂度和交付深度单独报价",
   "DR 内部账号订阅、批量生成算力、商用素材授权、上线投放和法务合规仍由 DR 自行负责",
@@ -299,6 +302,50 @@ const workflowBoundaries = [
 
 function formatPrice(value: number) {
   return `¥${yuan.format(value)}`;
+}
+
+function getTravelBreakdown(quantities: Partial<Record<ServiceId, number>>) {
+  const starterTrips = quantities.a ?? 0;
+  const followUpDays = quantities.b ?? 0;
+  const extraBootcamps = quantities.f ?? 0;
+  const flight =
+    roundTripFlightBudget * starterTrips +
+    (followUpDays > 0 ? roundTripFlightBudget : 0) +
+    roundTripFlightBudget * extraBootcamps;
+  const hotel =
+    hotelNightBudget * starterTripNights * starterTrips +
+    hotelNightBudget * followUpDays +
+    hotelNightBudget * starterTripNights * extraBootcamps;
+
+  return {
+    flight,
+    hotel,
+    total: flight + hotel,
+  };
+}
+
+function mergeQuantities(plan: Plan, addons: Partial<Record<ServiceId, number>>) {
+  return services.reduce<Partial<Record<ServiceId, number>>>((current, service) => {
+    const quantity = (plan.included[service.id] ?? 0) + (addons[service.id] ?? 0);
+    if (quantity > 0) {
+      current[service.id] = quantity;
+    }
+    return current;
+  }, {});
+}
+
+function getPlanTravel(plan: Plan) {
+  return getTravelBreakdown(plan.included);
+}
+
+function getPlanTotalPrice(plan: Plan) {
+  if (!plan.price) return 0;
+  return plan.price + getPlanTravel(plan).total;
+}
+
+function getPlanTotalListPrice(plan: Plan) {
+  if (!plan.listPrice) return 0;
+  return plan.listPrice + getPlanTravel(plan).total;
 }
 
 function roundToHundred(value: number) {
@@ -317,12 +364,12 @@ function getAddonPrice(plan: Plan, listPrice: number) {
 
 function getPlanDiscount(plan: Plan) {
   if (!plan.listPrice) return "自由组合";
-  return `约 ${Math.round((plan.price / plan.listPrice) * 100) / 10} 折`;
+  return `服务约 ${Math.round((plan.price / plan.listPrice) * 100) / 10} 折`;
 }
 
 function getSavingsLabel(plan: Plan) {
   if (!plan.listPrice) return "";
-  return `单项合计 ${formatPrice(plan.listPrice)} · 预估省 ${formatPrice(plan.listPrice - plan.price)}`;
+  return `含差旅 ${formatPrice(getPlanTravel(plan).total)} · 服务预估省 ${formatPrice(plan.listPrice - plan.price)}`;
 }
 
 function App() {
@@ -335,6 +382,7 @@ function App() {
   const isCustomPlan = selectedPlan.id === "custom";
 
   const totals = useMemo(() => {
+    const combinedQuantities = mergeQuantities(selectedPlan, addons);
     const addonRows = services
       .map((service) => {
         const quantity = addons[service.id] ?? 0;
@@ -351,13 +399,19 @@ function App() {
 
     const addonListPrice = addonRows.reduce((sum, row) => sum + row.listPrice, 0);
     const addonPrice = addonRows.reduce((sum, row) => sum + row.price, 0);
-    const listPrice = selectedPlan.listPrice + addonListPrice;
-    const price = selectedPlan.id === "custom" ? addonListPrice : selectedPlan.price + addonPrice;
-    const savings = Math.max(0, listPrice - price);
-    const discount = listPrice > 0 ? `${Math.round((price / listPrice) * 100) / 10} 折` : "待组合";
+    const serviceListPrice = selectedPlan.listPrice + addonListPrice;
+    const servicePrice = selectedPlan.id === "custom" ? addonListPrice : selectedPlan.price + addonPrice;
+    const travel = getTravelBreakdown(combinedQuantities);
+    const listPrice = serviceListPrice + travel.total;
+    const price = servicePrice + travel.total;
+    const savings = Math.max(0, serviceListPrice - servicePrice);
+    const discount = serviceListPrice > 0 ? `服务 ${Math.round((servicePrice / serviceListPrice) * 100) / 10} 折` : "待组合";
 
     return {
       addonRows,
+      serviceListPrice,
+      servicePrice,
+      travel,
       listPrice,
       price,
       savings,
@@ -384,12 +438,14 @@ function App() {
 
   const checkoutText = [
     `DR AI 企业转型合作方案：${selectedPlan.title}`,
-    isCustomPlan ? `当前标准合计：${totals.price ? formatPrice(totals.price) : "待组合"}` : `预估报价：${formatPrice(totals.price)}`,
+    isCustomPlan ? `当前预估总报价：${totals.price ? formatPrice(totals.price) : "待组合"}` : `预估总报价：${formatPrice(totals.price)}`,
     totals.listPrice
       ? isCustomPlan
         ? `标准合计：${formatPrice(totals.listPrice)}，具体优惠细节面聊确认`
         : `标准合计：${formatPrice(totals.listPrice)}，预估约 ${totals.discount}`
       : "标准合计：待组合",
+    `服务费小计：${totals.servicePrice ? formatPrice(totals.servicePrice) : "待组合"}`,
+    `差旅预估：${totals.travel.total ? formatPrice(totals.travel.total) : "暂无线下差旅"}（机票按上海往返深圳 ${formatPrice(roundTripFlightBudget)}，酒店按 ${hotelNightBudget} 元/晚）`,
     "线下内容：",
     ...selectedPlan.onsite.map((item) => `- ${item}`),
     "线上内容：",
@@ -399,7 +455,7 @@ function App() {
       const linePrice = selectedPlan.id === "custom" ? row.listPrice : row.price;
       return `- ${row.service.code} ${row.service.title} × ${row.quantity}，${formatPrice(linePrice)}`;
     }),
-    "差旅说明：线下服务差旅另计",
+    "差旅说明：线下服务差旅已按预估计入总报价，最终以双方确认行程为准",
   ].join("\n");
 
   const copyCheckout = async () => {
@@ -463,8 +519,8 @@ function App() {
           <p>视觉、社媒、产品、电商共同覆盖</p>
         </div>
         <div>
-          <span>¥42,000 起</span>
-          <p>延续上次 5 小时 2 万的合作标准，并做总包折扣</p>
+          <span>¥46,650 起</span>
+          <p>已含上海往返深圳机票和 5 晚酒店预算</p>
         </div>
       </section>
 
@@ -554,7 +610,7 @@ function App() {
           <p className={styles.eyebrow}>交互式报价</p>
           <h2>选择组合包，或继续加购服务</h2>
           <p>
-            页面展示的是预估报价与预估优惠空间。具体服务组合、优惠细节和差旅安排，会在面聊时一起确认
+            页面展示的是预估总报价与预估优惠空间，已把上海往返深圳机票和酒店预算计入。具体服务组合、优惠细节和行程安排，会在面聊时一起确认
           </p>
         </div>
 
@@ -573,10 +629,10 @@ function App() {
                   <p>{plan.subtitle}</p>
                 </div>
                 <div className={styles.planPriceLine}>
-                  <strong>{plan.price ? formatPrice(plan.price) : "按组合计算"}</strong>
+                  <strong>{plan.price ? formatPrice(getPlanTotalPrice(plan)) : "按组合计算"}</strong>
                   {plan.price ? (
                     <em>
-                      {getSavingsLabel(plan)} · {getPlanDiscount(plan)}
+                      标准合计 {formatPrice(getPlanTotalListPrice(plan))} · {getSavingsLabel(plan)}
                     </em>
                   ) : (
                     <em>优惠细节面聊确认</em>
@@ -636,7 +692,7 @@ function App() {
             <div className={styles.cartSticky}>
               <div className={styles.panelHeader}>
                 <h3>结算预览</h3>
-                <p>差旅费用另计，最终以双方确认版本为准</p>
+                <p>已计入差旅预估，最终以双方确认版本为准</p>
               </div>
 
               <div className={styles.selectedPlan}>
@@ -678,6 +734,14 @@ function App() {
 
               <div className={styles.totalBox}>
                 <p>
+                  <span>服务费小计</span>
+                  <strong>{totals.servicePrice ? formatPrice(totals.servicePrice) : "待组合"}</strong>
+                </p>
+                <p>
+                  <span>差旅预估</span>
+                  <strong>{totals.travel.total ? formatPrice(totals.travel.total) : "-"}</strong>
+                </p>
+                <p>
                   <span>标准合计</span>
                   <strong>{totals.listPrice ? formatPrice(totals.listPrice) : "待组合"}</strong>
                 </p>
@@ -686,7 +750,7 @@ function App() {
                   <strong>{isCustomPlan ? "面聊确认" : totals.savings ? formatPrice(totals.savings) : "-"}</strong>
                 </p>
                 <p className={styles.finalPriceRow}>
-                  <span>{isCustomPlan ? "当前标准合计" : "预估报价"}</span>
+                  <span>{isCustomPlan ? "当前预估总报价" : "预估总报价"}</span>
                   <strong>
                     {totals.price ? formatPrice(totals.price) : "待组合"}
                     {totals.price ? <em>{isCustomPlan ? "优惠面聊确认" : totals.discount}</em> : null}
@@ -695,7 +759,7 @@ function App() {
               </div>
 
               <p className={styles.quoteNote}>
-                以上为预估口径，具体服务组合、优惠细节与差旅安排以面聊确认版本为准
+                差旅按上海往返深圳机票 {formatPrice(roundTripFlightBudget)}、酒店 {hotelNightBudget} 元/晚预估。以上为预估口径，具体服务组合、优惠细节与行程安排以面聊确认版本为准
               </p>
 
               <button type="button" className={styles.copyButton} onClick={copyCheckout}>
