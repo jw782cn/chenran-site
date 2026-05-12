@@ -308,19 +308,39 @@ function getTravelBreakdown(quantities: Partial<Record<ServiceId, number>>) {
   const starterTrips = quantities.a ?? 0;
   const followUpDays = quantities.b ?? 0;
   const extraBootcamps = quantities.f ?? 0;
-  const flight =
-    roundTripFlightBudget * starterTrips +
-    (followUpDays > 0 ? roundTripFlightBudget : 0) +
-    roundTripFlightBudget * extraBootcamps;
-  const hotel =
-    hotelNightBudget * starterTripNights * starterTrips +
-    hotelNightBudget * followUpDays +
-    hotelNightBudget * starterTripNights * extraBootcamps;
+  const lines: Array<{ title: string; detail: string; total: number }> = [];
+  let flight = 0;
+  let hotel = 0;
+
+  const addLine = (title: string, flightAmount: number, hotelNights: number) => {
+    const hotelAmount = hotelNightBudget * hotelNights;
+    const total = flightAmount + hotelAmount;
+    flight += flightAmount;
+    hotel += hotelAmount;
+    lines.push({
+      title,
+      total,
+      detail: `${title}：机票 ${formatPrice(flightAmount)} + 酒店 ${formatPrice(hotelAmount)}（${hotelNightBudget} × ${hotelNights} 晚）= ${formatPrice(total)}`,
+    });
+  };
+
+  if (starterTrips > 0) {
+    addLine("首周现场", roundTripFlightBudget * starterTrips, starterTripNights * starterTrips);
+  }
+
+  if (followUpDays > 0) {
+    addLine(`追加线下 ${followUpDays} 天`, roundTripFlightBudget, followUpDays);
+  }
+
+  if (extraBootcamps > 0) {
+    addLine(`追加启动营${extraBootcamps > 1 ? ` × ${extraBootcamps}` : ""}`, roundTripFlightBudget * extraBootcamps, starterTripNights * extraBootcamps);
+  }
 
   return {
     flight,
     hotel,
     total: flight + hotel,
+    lines,
   };
 }
 
@@ -369,7 +389,12 @@ function getPlanDiscount(plan: Plan) {
 
 function getSavingsLabel(plan: Plan) {
   if (!plan.listPrice) return "";
-  return `含差旅 ${formatPrice(getPlanTravel(plan).total)} · 服务预估省 ${formatPrice(plan.listPrice - plan.price)}`;
+  return `服务预估省 ${formatPrice(plan.listPrice - plan.price)}`;
+}
+
+function getTravelSummary(travel: ReturnType<typeof getTravelBreakdown>) {
+  if (!travel.total) return "暂无线下差旅";
+  return travel.lines.map((line) => `${line.title} ${formatPrice(line.total)}`).join(" + ");
 }
 
 function App() {
@@ -445,7 +470,9 @@ function App() {
         : `标准合计：${formatPrice(totals.listPrice)}，预估约 ${totals.discount}`
       : "标准合计：待组合",
     `服务费小计：${totals.servicePrice ? formatPrice(totals.servicePrice) : "待组合"}`,
-    `差旅预估：${totals.travel.total ? formatPrice(totals.travel.total) : "暂无线下差旅"}（机票按上海往返深圳 ${formatPrice(roundTripFlightBudget)}，酒店按 ${hotelNightBudget} 元/晚）`,
+    `差旅预估：${totals.travel.total ? formatPrice(totals.travel.total) : "暂无线下差旅"}`,
+    totals.travel.lines.length ? "差旅明细：" : "",
+    ...totals.travel.lines.map((line) => `- ${line.detail}`),
     "线下内容：",
     ...selectedPlan.onsite.map((item) => `- ${item}`),
     "线上内容：",
@@ -631,9 +658,11 @@ function App() {
                 <div className={styles.planPriceLine}>
                   <strong>{plan.price ? formatPrice(getPlanTotalPrice(plan)) : "按组合计算"}</strong>
                   {plan.price ? (
-                    <em>
-                      标准合计 {formatPrice(getPlanTotalListPrice(plan))} · {getSavingsLabel(plan)}
-                    </em>
+                    <>
+                      <em>标准合计 {formatPrice(getPlanTotalListPrice(plan))}</em>
+                      <em>差旅明细：{getTravelSummary(getPlanTravel(plan))}</em>
+                      <em>{getSavingsLabel(plan)}</em>
+                    </>
                   ) : (
                     <em>优惠细节面聊确认</em>
                   )}
@@ -737,8 +766,13 @@ function App() {
                   <span>服务费小计</span>
                   <strong>{totals.servicePrice ? formatPrice(totals.servicePrice) : "待组合"}</strong>
                 </p>
-                <p>
-                  <span>差旅预估</span>
+                <p className={styles.travelTotalRow}>
+                  <span>
+                    差旅预估
+                    {totals.travel.lines.map((line) => (
+                      <em key={line.detail}>{line.detail}</em>
+                    ))}
+                  </span>
                   <strong>{totals.travel.total ? formatPrice(totals.travel.total) : "-"}</strong>
                 </p>
                 <p>
@@ -759,7 +793,7 @@ function App() {
               </div>
 
               <p className={styles.quoteNote}>
-                差旅按上海往返深圳机票 {formatPrice(roundTripFlightBudget)}、酒店 {hotelNightBudget} 元/晚预估。以上为预估口径，具体服务组合、优惠细节与行程安排以面聊确认版本为准
+                差旅按上海往返深圳机票 {formatPrice(roundTripFlightBudget)}、酒店 {hotelNightBudget} 元/晚预估，并已在上方逐项拆分。以上为预估口径，具体服务组合、优惠细节与行程安排以面聊确认版本为准
               </p>
 
               <button type="button" className={styles.copyButton} onClick={copyCheckout}>

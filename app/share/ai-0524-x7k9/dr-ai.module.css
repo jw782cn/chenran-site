@@ -492,7 +492,7 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.25;
 }
 
 .activePlan {
@@ -723,6 +723,24 @@
   font-size: 22px;
   line-height: 1;
   text-align: right;
+}
+
+.travelTotalRow {
+  align-items: flex-start !important;
+}
+
+.travelTotalRow span {
+  display: grid;
+  max-width: 250px;
+  gap: 6px;
+}
+
+.travelTotalRow em {
+  color: #d6d1c7;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45;
 }
 
 .finalPriceRow strong {
