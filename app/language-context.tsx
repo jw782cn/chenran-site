@@ -13,8 +13,14 @@ const LanguageContext = createContext<LanguageContextValue>({
   toggle: () => {},
 });
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+export function LanguageProvider({
+  children,
+  initialLocale = "en",
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
+  const [locale, setLocale] = useState<Locale>(initialLocale);
   const toggle = useCallback(
     () => setLocale((prev) => (prev === "en" ? "zh" : "en")),
     []

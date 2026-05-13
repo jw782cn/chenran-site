@@ -1,5 +1,5 @@
 ---
-status: active
+status: in_progress
 started_at: 2026-05-13
 module: seo
 ---
@@ -215,35 +215,35 @@ P0 清洗范围：
 - [ ] 中英文切换仍可用
 - [ ] 现有外链仍能点击
 - [ ] 现有图片资源正常加载
-- [ ] `pnpm typecheck` 通过
-- [ ] `pnpm build` 通过
+- [x] `pnpm typecheck` 通过
+- [x] `pnpm build` 通过
 
 ### 5.2 技术 SEO
 
-- [ ] `/robots.txt` 返回 200
-- [ ] `/sitemap.xml` 返回 200
-- [ ] 首页 HTML 有 canonical 到 `https://chenranning.com/`
-- [ ] OG/Twitter image 使用主域资源
-- [ ] 首页有 `Person` / `ProfilePage` JSON-LD
-- [ ] JSON-LD 不包含页面不可见或未核验的夸张信息
+- [x] `/robots.txt` 返回 200
+- [x] `/sitemap.xml` 返回 200
+- [x] 首页 HTML 有 canonical 到 `https://chenranning.com/`
+- [x] OG/Twitter image 使用主域资源
+- [x] 首页有 `Person` / `ProfilePage` JSON-LD
+- [x] JSON-LD 不包含页面不可见或未核验的夸张信息
 
 ### 5.3 内容 SEO
 
 - [ ] 首页内容已对齐 `personal/identity-ssot.md`
-- [ ] 当前 X 链接和社交身份不再误用 URL handle
+- [x] 当前 X 链接和社交身份不再误用 URL handle
 - [ ] 主页所有外链有核验状态
 - [ ] 首页首屏同时表达姓名、当前 title、领域和代表 proof
-- [ ] 中文核心内容可被直接 URL 抓取
-- [ ] 至少 1 个作品页有独立 URL、title、description、H1、证据链接
+- [x] 中文核心内容可被直接 URL 抓取
+- [x] 至少 1 个作品页有独立 URL、title、description、H1、证据链接
 - [ ] Seedance / Medeo / AI Will / Devices / QCon 后续页面规划已写入文档或数据结构
-- [ ] 传播指标使用 reported / 报道口径限定
+- [x] 传播指标使用 reported / 报道口径限定
 
 ### 5.4 监控与文档
 
-- [ ] `docs/tasks/seo/personal-site-seo.verification.md` 存在
-- [ ] GSC 配置步骤已列出
-- [ ] Bing Webmaster Tools 配置步骤已列出
-- [ ] 月度复盘维度已列出：品牌词、身份词、项目词、内容词、外链、AI citation
+- [x] `docs/tasks/seo/personal-site-seo.verification.md` 存在
+- [x] GSC 配置步骤已列出
+- [x] Bing Webmaster Tools 配置步骤已列出
+- [x] 月度复盘维度已列出：品牌词、身份词、项目词、内容词、外链、AI citation
 
 ---
 
@@ -262,3 +262,4 @@ P0 清洗范围：
 ## 7. 变更记录
 
 - **2026-05-13 T0** — 主 Agent 创建 SEO Task，引用 ran-brain SEO research，并拆分 Technical SEO、Content Architecture、Chinese Indexing、Verification 四个后续阶段
+- **2026-05-13 T1** — Coder 启动第一阶段准备工作：补 `robots.ts`、`sitemap.ts`、canonical、OG/Twitter image、Person/ProfilePage JSON-LD、`/zh` 中文入口、Seedance 作品页模板和 verification 文档

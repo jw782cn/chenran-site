@@ -1,15 +1,33 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { defaultDescription, personJsonLd, SITE_URL, siteName } from "./site-config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: "Chenran Ning | AI Video Product Lead",
-  description:
-    "Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL),
+  title: {
+    default: "Chenran Ning / 宁晨然 | AI Video Product Lead",
+    template: "%s",
+  },
+  description: defaultDescription,
   openGraph: {
-    title: "Chenran Ning | AI Video Product Lead",
-    description:
-      "AI video product lead, full-stack engineer, and AI filmmaker working across AI video, agentic workflows, creator tools, and AI-native storytelling.",
+    title: "Chenran Ning / 宁晨然 | AI Video Product Lead",
+    description: defaultDescription,
+    url: SITE_URL,
+    siteName,
+    type: "profile",
+    images: [
+      {
+        url: "/assets/chenran-qcon.jpg",
+        width: 1686,
+        height: 2133,
+        alt: "Chenran Ning speaking at QCon",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chenran Ning / 宁晨然 | AI Video Product Lead",
+    description: defaultDescription,
     images: ["/assets/chenran-qcon.jpg"],
   },
 };
@@ -21,7 +39,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
