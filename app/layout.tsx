@@ -3,7 +3,7 @@ import "./globals.css";
 import { defaultDescription, personJsonLd, SITE_URL, siteName } from "./site-config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Chenran Ning / 宁晨然 | AI Video Product Lead",
     template: "%s",
