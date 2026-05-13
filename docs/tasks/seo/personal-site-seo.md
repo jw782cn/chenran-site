@@ -22,14 +22,15 @@ module: seo
 
 1. 官网内容已对齐 `/Users/ran/.codex/worktrees/d5ac/ran-brain/personal/identity-ssot.md`
 2. 主页所有身份、代表作、指标和链接完成可信度清洗，未核验信息明确标注或移除
-3. `https://chenranning.com/robots.txt` 和 `https://chenranning.com/sitemap.xml` 返回 200，并指向 canonical 主域
-4. 首页有明确 canonical、metadata、Open Graph、Twitter card，社交图片使用 `https://chenranning.com` 主域资源
-5. 首页 HTML 中存在 `Person` / `ProfilePage` JSON-LD，能把 `Chenran Ning`、`宁晨然`、`jw782cn`、GitHub、X、LinkedIn、即刻、Medeo 等实体线索连接起来；不要把社交平台 URL 里的 handle 误写成姓名或别名
-6. 中文内容有可索引方案，不能只依赖客户端切换后才出现中文核心内容
-7. 至少完成第一批独立作品页的信息架构和 URL 设计，并实现 1 个代表页作为模板
-8. 建立 SEO 监控清单，包含 Google Search Console、Bing Webmaster Tools、品牌词 / 身份词 / 项目词 / 内容词分组
-9. `pnpm typecheck` 和 `pnpm build` 通过
-10. 用浏览器检查桌面和移动端：首页、中文内容入口、作品页、社交预览关键图文不重叠
+3. 主页、作品页、JSON-LD 和 SEO topic cluster 不把个人 Brain / ran-brain / harness / memory 结构作为公开展示项目
+4. `https://chenranning.com/robots.txt` 和 `https://chenranning.com/sitemap.xml` 返回 200，并指向 canonical 主域
+5. 首页有明确 canonical、metadata、Open Graph、Twitter card，社交图片使用 `https://chenranning.com` 主域资源
+6. 首页 HTML 中存在 `Person` / `ProfilePage` JSON-LD，能把 `Chenran Ning`、`宁晨然`、`jw782cn`、GitHub、X、LinkedIn、即刻、Medeo 等实体线索连接起来；不要把社交平台 URL 里的 handle 误写成姓名或别名
+7. 中文内容有可索引方案，不能只依赖客户端切换后才出现中文核心内容
+8. 至少完成第一批独立作品页的信息架构和 URL 设计，并实现 1 个代表页作为模板
+9. 建立 SEO 监控清单，包含 Google Search Console、Bing Webmaster Tools、品牌词 / 身份词 / 项目词 / 内容词分组
+10. `pnpm typecheck` 和 `pnpm build` 通过
+11. 用浏览器检查桌面和移动端：首页、中文内容入口、作品页、社交预览关键图文不重叠
 
 ### 1.3 不做的事
 
@@ -37,6 +38,7 @@ module: seo
 - 不把所有作品页一次性写完
 - 不改网站整体视觉风格，除非为 SEO 内容结构必须调整
 - 不把未核验数据写成绝对事实，传播指标继续使用“报道口径 / reported / estimated”
+- 不公开展示个人 Brain、ran-brain、harness、memory 结构；这些只作为内部资料源和工作方法背景
 - 不接入付费 SEO 工具账号，除非主人后续明确提供
 
 ---
@@ -87,6 +89,7 @@ P0 清洗范围：
 - 链接：外链逐条核验，泛链接和空链接替换成具体证据页或暂时移除
 - 指标：`25M+`、`10K+`、GitHub stars、B 站数据全部保留“报道口径 / 旧数据 / 待核验”
 - 代表作：优先 Seedance、Medeo、AI 共写遗嘱、QCon、RepoChat-200k，不平铺全部项目
+- 内部系统：个人 Brain / ran-brain 只作为 SSOT 和工作流来源，不进入主页模块、作品页、JSON-LD 作品实体或 SEO topic cluster
 
 ### 3.2 采用阶段化 SEO，而不是一次性重写全站
 
@@ -150,6 +153,7 @@ P0 清洗范围：
 - 退出条件：
   - 主页不再包含误用身份、空链接、泛 proof、未限定指标
   - 所有保留 claim 都能在 SSOT 或 source materials 中找到来源
+  - 主页不展示个人 Brain / ran-brain / harness / memory 结构
 
 ### Subagent B: Technical SEO Foundation
 
