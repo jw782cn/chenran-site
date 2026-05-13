@@ -44,7 +44,7 @@ const dict = {
         title: "AI Will",
         collab: "with Xinshixiang",
         body: "Designed and built an AI-guided reflective writing experience. Through structured conversation, 10,000+ young people explored mortality, relationships, and personal values. AI as medium for self-reflection, not content generation.",
-        link: "Douban project page",
+        link: "Read case study",
       },
       aiFilms: {
         title: "AI Short Films",
@@ -114,7 +114,7 @@ const dict = {
         title: "AI 遗嘱",
         collab: "与新世相合作",
         body: "设计并构建了一个 AI 引导的反思写作体验。通过结构化对话，10,000+ 年轻人探索了死亡、关系和个人价值观。AI 作为自我反思的媒介，而非内容生成工具。",
-        link: "豆瓣项目页",
+        link: "查看作品页",
       },
       aiFilms: {
         title: "AI 短片",

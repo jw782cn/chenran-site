@@ -30,6 +30,14 @@ export const seedanceLinks = {
     "https://www.ndtvprofit.com/business/disney-calls-out-bytedance-for-piracy-in-ai-video-model-seedance-2-0-11003312",
 } as const;
 
+export const aiWillLinks = {
+  work: "/work/ai-will",
+  wechatReport: "https://mp.weixin.qq.com/s/EYsqgDYSDu6OsmzZ0vXrJw",
+  wechatLaunch: "https://mp.weixin.qq.com/s/2cjf7AXjV7kHb5N0SsdbGQ",
+  jikeLaunch: "https://m.okjike.com/originalPosts/66c175eca0d6d2ffc4b4244e",
+  jikeRecap: "https://m.okjike.com/originalPosts/670cf05c46d5f8944cec94b7",
+} as const;
+
 export const personJsonLd = {
   "@context": "https://schema.org",
   "@graph": [

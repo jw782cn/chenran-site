@@ -71,7 +71,7 @@ module: seo
 - 当前没有 JSON-LD 结构化数据
 - 当前是单页锚点结构，缺少作品独立 URL、独立 title/meta/OG
 - 当前中文内容依赖客户端语言切换，不是清晰的可索引中文页面
-- 现有链接健康需要持续核验，尤其 LinkedIn、豆瓣安全跳转、X 登录态、媒体泛链接
+- 现有链接健康需要持续核验，尤其 LinkedIn、微信公众号验证页、X 登录态、媒体泛链接
 
 ---
 
@@ -124,7 +124,7 @@ P0 清洗范围：
 - `/work/devices`
 - `/speaking/qcon-ai-product`
 
-第一阶段只实现 1 个代表页作为模板，优先 `Seedance`，因为它有最强外部传播和媒体证明。
+第一阶段先实现代表页模板，优先 `Seedance`，因为它有最强外部传播和媒体证明；`AI Will` 作为第二个轻量作品页，用公众号报道替换不稳定的旧项目页链接。
 
 ### 3.6 作品页模板
 
@@ -235,7 +235,7 @@ P0 清洗范围：
 - [ ] 首页首屏同时表达姓名、当前 title、领域和代表 proof
 - [x] 中文核心内容可被直接 URL 抓取
 - [x] 至少 1 个作品页有独立 URL、title、description、H1、证据链接
-- [ ] Seedance / Medeo / AI Will / Devices / QCon 后续页面规划已写入文档或数据结构
+- [x] Seedance / Medeo / AI Will / Devices / QCon 后续页面规划已写入文档或数据结构
 - [x] 传播指标使用 reported / 报道口径限定
 
 ### 5.4 监控与文档
@@ -254,7 +254,7 @@ P0 清洗范围：
 | www 到 root 的生产环境行为可能受 Railway / DNS 影响 | 代码层已加 permanent redirect，部署后用真实域名 `curl -I` 复验 |
 | 中文路由改动影响当前客户端语言切换 | 先做最小 `/zh` 页面，复用现有文案数据，保留原切换交互 |
 | JSON-LD 写入未核验指标或误用社交 handle 导致信任风险 | 只写身份、角色、sameAs、knowsAbout、worksFor，不写粉丝数、曝光量，且不把未确认社交 handle 写成姓名或别名 |
-| 拆作品页导致视觉风格膨胀 | 第一阶段只做 Seedance 模板页，复用现有视觉系统 |
+| 拆作品页导致视觉风格膨胀 | 第一阶段只做 Seedance 模板页和 AI Will 轻量页，复用现有视觉系统 |
 | 外链平台反爬或登录态导致自动检查误报 | 链接检查结果标注状态码和限制原因，人工确认 LinkedIn / X |
 
 ---
@@ -264,4 +264,5 @@ P0 清洗范围：
 - **2026-05-13 T0** — 主 Agent 创建 SEO Task，引用 ran-brain SEO research，并拆分 Technical SEO、Content Architecture、Chinese Indexing、Verification 四个后续阶段
 - **2026-05-13 T1** — Coder 启动第一阶段准备工作：补 `robots.ts`、`sitemap.ts`、canonical、OG/Twitter image、Person/ProfilePage JSON-LD、`/zh` 中文入口、Seedance 作品页模板和 verification 文档
 - **2026-05-13 T2** — 补充 `www.chenranning.com` 到 root 主域的 permanent redirect，并为 Seedance 作品页增加 `VideoObject` / `BreadcrumbList` JSON-LD
-- **2026-05-13 T3** — 跑外链健康检查并写入 verification；20 个核心外链返回 200，LinkedIn 返回 999 反爬码，豆瓣跳安全页但返回 200
+- **2026-05-13 T3** — 跑外链健康检查并写入 verification；20 个核心外链返回 200，LinkedIn 返回 999 反爬码，旧项目页跳安全页但返回 200
+- **2026-05-13 T4** — 按主人反馈移除 AI Will 旧项目页链接，新增 `/work/ai-will` 轻量作品页，证据主链改为 AI 新榜 / 新世相公众号报道与即刻发布复盘；重新核验外链，24 个外链中 23 个返回 200，LinkedIn 返回 999 反爬码

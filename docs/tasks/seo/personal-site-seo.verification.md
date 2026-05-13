@@ -7,26 +7,28 @@ module: seo
 # 个人官网 SEO 验证记录
 
 验证日期：2026-05-13  
-验证范围：第一阶段 SEO 准备工作，包含技术 SEO 地基、中文可索引入口、Seedance 作品页模板和主页内容口径清洗
+验证范围：第一阶段 SEO 准备工作，包含技术 SEO 地基、中文可索引入口、Seedance / AI Will 作品页模板和主页内容口径清洗
 
 ## 1. 自动验证结果
 
 | 项目 | 结果 | 证据 |
 |---|---|---|
 | TypeScript | Pass | `pnpm typecheck` 通过 |
-| Production build | Pass | `pnpm build` 通过，`/`、`/zh`、`/robots.txt`、`/sitemap.xml`、`/work/seedance-stranger-things-ai-finale` 均静态生成 |
+| Production build | Pass | `pnpm build` 通过，`/`、`/zh`、`/robots.txt`、`/sitemap.xml`、`/work/seedance-stranger-things-ai-finale`、`/work/ai-will` 均静态生成 |
 | robots.txt | Pass | `curl http://localhost:3000/robots.txt` 返回 `Allow: /`、`Disallow: /share/`、主域 sitemap |
-| sitemap.xml | Pass | `curl http://localhost:3000/sitemap.xml` 返回 3 个 URL：`/`、`/zh`、Seedance 作品页 |
+| sitemap.xml | Pass | `curl http://localhost:3000/sitemap.xml` 返回 4 个 URL：`/`、`/zh`、Seedance 作品页、AI Will 作品页 |
 | 首页 canonical | Pass | 首页 HTML 有 `rel="canonical"` 指向 `https://chenranning.com` |
 | 中文页 canonical | Pass | `/zh` HTML 有 `rel="canonical"` 指向 `https://chenranning.com/zh` |
 | Seedance 作品页 canonical | Pass | 作品页 HTML 有 `rel="canonical"` 指向对应主域 URL |
+| AI Will 作品页 canonical | Pass | 作品页 HTML 有 `rel="canonical"` 指向对应主域 URL |
 | OG / Twitter image | Pass | 首页、中文页、作品页均输出 `https://chenranning.com/assets/chenran-qcon.jpg` |
 | Person / ProfilePage JSON-LD | Pass | 首页 HTML 中存在 `application/ld+json`，包含 `Person`、`WebSite`、`ProfilePage` |
 | Seedance 作品页 JSON-LD | Pass | 作品页 HTML 中存在 `VideoObject` 和 `BreadcrumbList` |
+| AI Will 作品页 JSON-LD | Pass | 作品页 HTML 中存在 `CreativeWork` 和 `BreadcrumbList` |
 | www 到 root 重定向 | Pass | `curl -I -H 'Host: www.chenranning.com' http://localhost:3000/work/seedance-stranger-things-ai-finale` 返回 `308 Permanent Redirect` 到 root 主域 |
 | 旧 X handle 清理 | Pass | `app/**` 中未检出 `ran_zixing` |
 | 中文核心内容可抓取 | Pass | `curl http://localhost:3000/zh` 可直接看到“宁晨然”“报道口径”“Medeo AI 视频产品负责人”等中文核心文本 |
-| 外链状态 | Pass with notes | 20 个核心外链返回 200；LinkedIn 返回 999 反爬码，豆瓣跳安全页但返回 200，需后续浏览器人工确认 |
+| 外链状态 | Pass with notes | 24 个外链中 23 个返回 200；LinkedIn 返回 999 反爬码；AI Will 旧项目页链接已移除，改用公众号报道和即刻旁证 |
 
 ## 2. 已完成功能
 
@@ -39,6 +41,8 @@ module: seo
 - 将传播数据口径改为 reported / 报道口径 / estimated，不写成后台绝对数据
 - 新增 `/work/seedance-stranger-things-ai-finale` 作品页模板，包含角色、workflow、公开视频和 proof links
 - 新增 Seedance 作品页 `VideoObject` / `BreadcrumbList` JSON-LD
+- 新增 `/work/ai-will` 轻量作品页，证据主链改为 AI 新榜 / 新世相公众号报道、上线文章、即刻发布和复盘
+- 移除 AI Will 旧项目页链接，避免安全页污染外链健康结果
 - 新增 `www.chenranning.com` 到 `https://chenranning.com` 的 308 / permanent redirect 规则
 - 首页增加 Bilibili 长期视频创作入口，避免早期 GitHub 项目成为主线
 
@@ -49,6 +53,7 @@ module: seo
 - Google Search Console 需要人工登录验证域名
 - Bing Webmaster Tools 需要人工登录验证域名
 - X 原帖完整互动数据、微信公众号原文、Instagram / TikTok / Shorts 转载链仍需后续截图或 Content Engine 补核
+- AI Will 公众号报道和上线文章已返回 200，但建议后续补浏览器截图归档，防止微信验证页造成证据漂移
 
 ## 4. GSC 配置清单
 
@@ -59,6 +64,7 @@ module: seo
    - `https://chenranning.com/`
    - `https://chenranning.com/zh`
    - `https://chenranning.com/work/seedance-stranger-things-ai-finale`
+   - `https://chenranning.com/work/ai-will`
 5. 每月导出 queries，按品牌词、身份词、项目词、内容词分组复盘
 
 ## 5. Bing Webmaster 配置清单
@@ -84,17 +90,21 @@ module: seo
 
 | 状态 | HTTP | URL | 说明 |
 |---|---:|---|---|
+| Warn | 999 | `https://cn.linkedin.com/in/chenran-ning/en` | LinkedIn 反爬响应，需浏览器人工确认 |
 | Pass | 200 | `https://cosmicbook.news/seedance-2-0-viral-videos-superman-stranger-things` | 可访问 |
 | Pass | 200 | `https://github.com/jw782cn` | 可访问 |
 | Pass | 200 | `https://hub.baai.ac.cn/view/52716` | 可访问 |
 | Pass | 200 | `https://i.ytimg.com/vi/iEmsuUuGBY4/hqdefault.jpg` | 可访问 |
+| Pass | 200 | `https://m.okjike.com/originalPosts/66c175eca0d6d2ffc4b4244e` | 可访问 |
+| Pass | 200 | `https://m.okjike.com/originalPosts/670cf05c46d5f8944cec94b7` | 可访问 |
 | Pass | 200 | `https://m.okjike.com/originalPosts/6991d4b4c5a1d4e649055d93` | 可访问 |
+| Pass | 200 | `https://mp.weixin.qq.com/s/2cjf7AXjV7kHb5N0SsdbGQ` | 可访问 |
+| Pass | 200 | `https://mp.weixin.qq.com/s/EYsqgDYSDu6OsmzZ0vXrJw` | 可访问 |
 | Pass | 200 | `https://news.qq.com/rain/a/20260423A07MLY00` | 可访问 |
 | Pass | 200 | `https://space.bilibili.com/11821775` | 可访问 |
 | Pass | 200 | `https://timesofindia.indiatimes.com/web-series/news/english/viral-ai-imagined-stranger-things-finale-sparks-fan-debate-over-eleven-kali-showdown-and-the-future-of-storytelling/articleshow/128406293.cms` | 可访问 |
 | Pass | 200 | `https://web.okjike.com/u/B6B0FF28-51D1-4A11-803E-FC46A0AD6EF8` | 可访问 |
 | Pass | 200 | `https://www.bilibili.com/video/BV1hCc5zVE7u` | 跳到尾斜杠 URL |
-| Pass | 200 | `https://www.douban.com/note/864914620/` | 跳到 `sec.douban.com` 安全页，浏览器需人工确认最终页 |
 | Pass | 200 | `https://www.marsmag.com/2026/02/18/netflix-to-bytedance-over-ai-videos-we-will-sue-you/` | 可访问 |
 | Pass | 200 | `https://www.medeo.app/` | 可访问 |
 | Pass | 200 | `https://www.ndtvprofit.com/business/disney-calls-out-bytedance-for-piracy-in-ai-video-model-seedance-2-0-11003312` | 可访问 |
@@ -104,4 +114,3 @@ module: seo
 | Pass | 200 | `https://www.zoomtventertainment.com/web-series/stranger-things-ai-generated-finale-seedance-2-0-article-153615636` | 可访问 |
 | Pass | 200 | `https://x.com/Nin19536` | 可访问 |
 | Pass | 200 | `https://x.com/Nin19536/status/2021956823457440179` | 可访问 |
-| Warn | 999 | `https://cn.linkedin.com/in/chenran-ning/en` | LinkedIn 反爬响应，需浏览器人工确认 |

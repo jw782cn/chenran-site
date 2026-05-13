@@ -2,7 +2,7 @@
 
 import { LanguageProvider, useLanguage } from "./language-context";
 import dict, { type Locale } from "./i18n";
-import { profileLinks, seedanceLinks } from "./site-config";
+import { aiWillLinks, profileLinks, seedanceLinks } from "./site-config";
 
 function PageContent() {
   const { locale, toggle } = useLanguage();
@@ -140,9 +140,7 @@ function PageContent() {
             <h3>{t.projects.aiWill.title}</h3>
             <p className="project-collab">{t.projects.aiWill.collab}</p>
             <p>{t.projects.aiWill.body}</p>
-            <a href="https://www.douban.com/note/864914620/" target="_blank" rel="noreferrer">
-              {t.projects.aiWill.link}
-            </a>
+            <a href={aiWillLinks.work}>{t.projects.aiWill.link}</a>
           </article>
           <article className="project-feature">
             <h3>{t.projects.aiFilms.title}</h3>
