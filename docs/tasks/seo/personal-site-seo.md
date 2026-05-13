@@ -87,8 +87,8 @@ P0 清洗范围：
 
 - 身份：只使用 `Chenran Ning`、`宁晨然`、`jw782cn` 等已确认实体线索
 - 链接：外链逐条核验，泛链接和空链接替换成具体证据页或暂时移除
-- 指标：`25M+`、`10K+`、GitHub stars、B 站数据全部保留“报道口径 / 旧数据 / 待核验”
-- 代表作：优先 Seedance、Medeo、AI 共写遗嘱、QCon、RepoChat-200k，不平铺全部项目
+- 指标：`25M+`、`10K+`、B 站数据全部保留“报道口径 / 旧数据 / 待核验”
+- 代表作：优先 Seedance、Medeo、AI 共写遗嘱、QCon、Bilibili 长期视频创作，不平铺全部项目；早期 GitHub 项目不进入主页主线
 - 内部系统：个人 Brain / ran-brain 只作为 SSOT 和工作流来源，不进入主页模块、作品页、JSON-LD 作品实体或 SEO topic cluster
 
 ### 3.2 采用阶段化 SEO，而不是一次性重写全站
