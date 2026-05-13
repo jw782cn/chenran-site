@@ -231,7 +231,7 @@ P0 清洗范围：
 
 - [ ] 首页内容已对齐 `personal/identity-ssot.md`
 - [x] 当前 X 链接和社交身份不再误用 URL handle
-- [ ] 主页所有外链有核验状态
+- [x] 主页所有外链有核验状态
 - [ ] 首页首屏同时表达姓名、当前 title、领域和代表 proof
 - [x] 中文核心内容可被直接 URL 抓取
 - [x] 至少 1 个作品页有独立 URL、title、description、H1、证据链接
@@ -264,3 +264,4 @@ P0 清洗范围：
 - **2026-05-13 T0** — 主 Agent 创建 SEO Task，引用 ran-brain SEO research，并拆分 Technical SEO、Content Architecture、Chinese Indexing、Verification 四个后续阶段
 - **2026-05-13 T1** — Coder 启动第一阶段准备工作：补 `robots.ts`、`sitemap.ts`、canonical、OG/Twitter image、Person/ProfilePage JSON-LD、`/zh` 中文入口、Seedance 作品页模板和 verification 文档
 - **2026-05-13 T2** — 补充 `www.chenranning.com` 到 root 主域的 permanent redirect，并为 Seedance 作品页增加 `VideoObject` / `BreadcrumbList` JSON-LD
+- **2026-05-13 T3** — 跑外链健康检查并写入 verification；20 个核心外链返回 200，LinkedIn 返回 999 反爬码，豆瓣跳安全页但返回 200

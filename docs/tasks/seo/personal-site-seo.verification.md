@@ -26,6 +26,7 @@ module: seo
 | www 到 root 重定向 | Pass | `curl -I -H 'Host: www.chenranning.com' http://localhost:3000/work/seedance-stranger-things-ai-finale` 返回 `308 Permanent Redirect` 到 root 主域 |
 | 旧 X handle 清理 | Pass | `app/**` 中未检出 `ran_zixing` |
 | 中文核心内容可抓取 | Pass | `curl http://localhost:3000/zh` 可直接看到“宁晨然”“报道口径”“Medeo AI 视频产品负责人”等中文核心文本 |
+| 外链状态 | Pass with notes | 20 个核心外链返回 200；LinkedIn 返回 999 反爬码，豆瓣跳安全页但返回 200，需后续浏览器人工确认 |
 
 ## 2. 已完成功能
 
@@ -75,3 +76,32 @@ module: seo
 - 内容词：`AI video workflow`、`AI-native video creation`、`怪奇物语 AI 大结局`
 - 技术项：索引状态、canonical、sitemap、robots、富结果解析、图片入口
 - 外部引用：新增媒体报道、社交 profile sameAs、AI answer citation
+
+## 7. 外链健康检查
+
+检查日期：2026-05-13
+检查方法：Node `fetch`，先 HEAD，遇到 405 / 403 / 429 再 GET，12 秒超时
+
+| 状态 | HTTP | URL | 说明 |
+|---|---:|---|---|
+| Pass | 200 | `https://cosmicbook.news/seedance-2-0-viral-videos-superman-stranger-things` | 可访问 |
+| Pass | 200 | `https://github.com/jw782cn` | 可访问 |
+| Pass | 200 | `https://hub.baai.ac.cn/view/52716` | 可访问 |
+| Pass | 200 | `https://i.ytimg.com/vi/iEmsuUuGBY4/hqdefault.jpg` | 可访问 |
+| Pass | 200 | `https://m.okjike.com/originalPosts/6991d4b4c5a1d4e649055d93` | 可访问 |
+| Pass | 200 | `https://news.qq.com/rain/a/20260423A07MLY00` | 可访问 |
+| Pass | 200 | `https://space.bilibili.com/11821775` | 可访问 |
+| Pass | 200 | `https://timesofindia.indiatimes.com/web-series/news/english/viral-ai-imagined-stranger-things-finale-sparks-fan-debate-over-eleven-kali-showdown-and-the-future-of-storytelling/articleshow/128406293.cms` | 可访问 |
+| Pass | 200 | `https://web.okjike.com/u/B6B0FF28-51D1-4A11-803E-FC46A0AD6EF8` | 可访问 |
+| Pass | 200 | `https://www.bilibili.com/video/BV1hCc5zVE7u` | 跳到尾斜杠 URL |
+| Pass | 200 | `https://www.douban.com/note/864914620/` | 跳到 `sec.douban.com` 安全页，浏览器需人工确认最终页 |
+| Pass | 200 | `https://www.marsmag.com/2026/02/18/netflix-to-bytedance-over-ai-videos-we-will-sue-you/` | 可访问 |
+| Pass | 200 | `https://www.medeo.app/` | 可访问 |
+| Pass | 200 | `https://www.ndtvprofit.com/business/disney-calls-out-bytedance-for-piracy-in-ai-video-model-seedance-2-0-11003312` | 可访问 |
+| Pass | 200 | `https://www.one2x.ai/` | 可访问 |
+| Pass | 200 | `https://www.youtube.com/embed/iEmsuUuGBY4` | 可访问 |
+| Pass | 200 | `https://www.youtube.com/watch?v=iEmsuUuGBY4` | 可访问 |
+| Pass | 200 | `https://www.zoomtventertainment.com/web-series/stranger-things-ai-generated-finale-seedance-2-0-article-153615636` | 可访问 |
+| Pass | 200 | `https://x.com/Nin19536` | 可访问 |
+| Pass | 200 | `https://x.com/Nin19536/status/2021956823457440179` | 可访问 |
+| Warn | 999 | `https://cn.linkedin.com/in/chenran-ning/en` | LinkedIn 反爬响应，需浏览器人工确认 |
