@@ -53,7 +53,8 @@ module: seo
 
 - 未做浏览器截图 QA：当前项目未安装 Playwright，当前会话也没有可调用的 Browser 工具；本轮只做 curl / build / typecheck 验证
 - `www` 到 root 已在 Next redirect 层处理；上线后仍建议在 Railway / DNS 层确认真实生产环境行为
-- 线上 `https://chenranning.com` baseline 未在本轮写入，需由主 agent 在部署确认后运行 `pnpm --silent seo:monitor` 采集
+- 线上 `https://chenranning.com` baseline 已写入 `docs/seo/baselines/2026-05-13-predeploy.json`、`docs/seo/baselines/2026-05-13-postdeploy.json` 和摘要 `docs/seo/baselines/2026-05-13-summary.json`
+- 部署后发现并修复 `NEXT_PUBLIC_SITE_URL` 导致的 canonical / OG image Railway 域漂移；代码已强制使用 `SITE_URL`，Railway 变量也已校正为 `https://chenranning.com`
 - Google Search Console 需要人工登录验证域名
 - Bing Webmaster Tools 需要人工登录验证域名
 - X 原帖完整互动数据、微信公众号原文、Instagram / TikTok / Shorts 转载链仍需后续截图或 Content Engine 补核

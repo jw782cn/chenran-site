@@ -1,0 +1,101 @@
+{
+  "date": "2026-05-13",
+  "beforeCheckedAt": "2026-05-13T07:50:35.264Z",
+  "afterCheckedAt": "2026-05-13T08:12:20.525Z",
+  "paths": [
+    {
+      "path": "/",
+      "before": 200,
+      "after": 200
+    },
+    {
+      "path": "/zh",
+      "before": 404,
+      "after": 200
+    },
+    {
+      "path": "/work/seedance-stranger-things-ai-finale",
+      "before": 404,
+      "after": 200
+    },
+    {
+      "path": "/work/ai-will",
+      "before": 404,
+      "after": 200
+    },
+    {
+      "path": "/robots.txt",
+      "before": 404,
+      "after": 200
+    },
+    {
+      "path": "/sitemap.xml",
+      "before": 404,
+      "after": 200
+    }
+  ],
+  "sitemapUrls": {
+    "before": 0,
+    "after": 4
+  },
+  "robots": {
+    "before": 404,
+    "after": 200
+  },
+  "homeCanonical": {
+    "before": null,
+    "after": "https://chenranning.com/"
+  },
+  "homeOgImage": {
+    "before": "https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg",
+    "after": "https://chenranning.com/assets/chenran-qcon.jpg"
+  },
+  "externalLinks": {
+    "before": {
+      "total": 12,
+      "checked": 12,
+      "ok": 11,
+      "limited": 1,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "statusCodes": {
+        "200": 11,
+        "999": 1
+      }
+    },
+    "after": {
+      "total": 22,
+      "checked": 22,
+      "ok": 19,
+      "limited": 3,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "statusCodes": {
+        "200": 21,
+        "999": 1
+      },
+      "problemLinks": [
+        {
+          "url": "https://cn.linkedin.com/in/chenran-ning/en",
+          "category": "limited",
+          "status": 999,
+          "finalUrl": "https://cn.linkedin.com/in/chenran-ning/en"
+        },
+        {
+          "url": "https://mp.weixin.qq.com/s/EYsqgDYSDu6OsmzZ0vXrJw",
+          "category": "limited",
+          "status": 200,
+          "finalUrl": "https://mp.weixin.qq.com/mp/wappoc_appmsgcaptcha?poc_token=HGUyBGqjfndGBBO-EKd2Ph746R6a6MViVlN4LLBY&target_url=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2FEYsqgDYSDu6OsmzZ0vXrJw"
+        },
+        {
+          "url": "https://mp.weixin.qq.com/s/2cjf7AXjV7kHb5N0SsdbGQ",
+          "category": "limited",
+          "status": 200,
+          "finalUrl": "https://mp.weixin.qq.com/mp/wappoc_appmsgcaptcha?poc_token=HGUyBGqjF2a6KAeRHOA224dQDe6C_YQPaGtUrlRV&target_url=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2F2cjf7AXjV7kHb5N0SsdbGQ"
+        }
+      ]
+    }
+  }
+}
