@@ -241,6 +241,8 @@ P0 清洗范围：
 ### 5.4 监控与文档
 
 - [x] `docs/tasks/seo/personal-site-seo.verification.md` 存在
+- [x] `scripts/seo-monitor.mjs` 可重复采集本地 / 线上 SEO 技术基线
+- [x] `docs/seo-monitoring.md` 作为每日监测 automation 的本地 SSOT
 - [x] GSC 配置步骤已列出
 - [x] Bing Webmaster Tools 配置步骤已列出
 - [x] 月度复盘维度已列出：品牌词、身份词、项目词、内容词、外链、AI citation
@@ -266,3 +268,4 @@ P0 清洗范围：
 - **2026-05-13 T2** — 补充 `www.chenranning.com` 到 root 主域的 permanent redirect，并为 Seedance 作品页增加 `VideoObject` / `BreadcrumbList` JSON-LD
 - **2026-05-13 T3** — 跑外链健康检查并写入 verification；20 个核心外链返回 200，LinkedIn 返回 999 反爬码，旧项目页跳安全页但返回 200
 - **2026-05-13 T4** — 按主人反馈移除 AI Will 旧项目页链接，新增 `/work/ai-will` 轻量作品页，证据主链改为 AI 新榜 / 新世相公众号报道与即刻发布复盘；重新核验外链，24 个外链中 23 个返回 200，LinkedIn 返回 999 反爬码
+- **2026-05-13 T5** — Coder 新增无外部依赖的 `scripts/seo-monitor.mjs` 和 `pnpm --silent seo:monitor`，补 `docs/seo-monitoring.md` 作为每日监测 SSOT；本地 `http://localhost:3000` smoke test 通过，未采集线上 baseline（完成）

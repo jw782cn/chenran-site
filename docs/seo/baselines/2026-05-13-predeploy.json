@@ -1,0 +1,300 @@
+{
+  "checkedAt": "2026-05-13T07:50:35.264Z",
+  "baseUrl": "https://chenranning.com",
+  "checkedPaths": [
+    "/",
+    "/zh",
+    "/work/seedance-stranger-things-ai-finale",
+    "/work/ai-will",
+    "/robots.txt",
+    "/sitemap.xml"
+  ],
+  "pathStatus": {
+    "/": {
+      "url": "https://chenranning.com/",
+      "status": 200,
+      "ok": true,
+      "finalUrl": "https://chenranning.com/"
+    },
+    "/zh": {
+      "url": "https://chenranning.com/zh",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/zh"
+    },
+    "/work/seedance-stranger-things-ai-finale": {
+      "url": "https://chenranning.com/work/seedance-stranger-things-ai-finale",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/work/seedance-stranger-things-ai-finale"
+    },
+    "/work/ai-will": {
+      "url": "https://chenranning.com/work/ai-will",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/work/ai-will"
+    },
+    "/robots.txt": {
+      "url": "https://chenranning.com/robots.txt",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/robots.txt"
+    },
+    "/sitemap.xml": {
+      "url": "https://chenranning.com/sitemap.xml",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/sitemap.xml"
+    }
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "url": "https://chenranning.com/",
+      "status": 200,
+      "ok": true,
+      "finalUrl": "https://chenranning.com/",
+      "contentType": "text/html; charset=utf-8",
+      "title": "Chenran Ning | AI Video Product Lead",
+      "description": "Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.",
+      "canonical": null,
+      "ogImage": "https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg",
+      "twitterCard": "summary_large_image",
+      "jsonLdTypes": [],
+      "jsonLdParseErrors": [],
+      "externalLinks": {
+        "total": 12,
+        "checked": 12,
+        "ok": 11,
+        "limited": 1,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "statusCodes": {
+          "200": 11,
+          "999": 1
+        },
+        "links": [
+          {
+            "url": "https://www.medeo.app/",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://www.medeo.app/",
+            "category": "ok"
+          },
+          {
+            "url": "https://www.one2x.ai/",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://www.one2x.ai/",
+            "category": "ok"
+          },
+          {
+            "url": "https://timesofindia.indiatimes.com/technology/tech-news/stranger-things-finale-created-with-ai-goes-viral/articleshow/121786498.cms",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://timesofindia.indiatimes.com/technology/tech-news/stranger-things-finale-created-with-ai-goes-viral/articleshow/121786498.cms",
+            "category": "ok"
+          },
+          {
+            "url": "https://www.zoom.tv/entertainment/stranger-things-ai-created-finale-goes-viral",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://www.zoom.tv/entertainment/stranger-things-ai-created-finale-goes-viral",
+            "category": "ok"
+          },
+          {
+            "url": "https://mp.weixin.qq.com/s/sMg2MsaClpFIMBx8A1tJRQ",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://mp.weixin.qq.com/s/sMg2MsaClpFIMBx8A1tJRQ",
+            "category": "ok"
+          },
+          {
+            "url": "https://x.com/Nin19536/status/2021956823457440179",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://x.com/Nin19536/status/2021956823457440179",
+            "category": "ok"
+          },
+          {
+            "url": "https://www.douban.com/note/864914620/",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://sec.douban.com/c?r=https%3A%2F%2Fwww.douban.com%2Fnote%2F864914620%2F&_s=981524074e40efe38bd565685e18ff2de041379155cfec45d5ab54fbbf98494e&a=1",
+            "category": "ok"
+          },
+          {
+            "url": "https://timesofindia.indiatimes.com/",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://timesofindia.indiatimes.com/",
+            "category": "ok"
+          },
+          {
+            "url": "https://x.com/ran_zixing",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://x.com/ran_zixing",
+            "category": "ok"
+          },
+          {
+            "url": "https://github.com/jw782cn",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://github.com/jw782cn",
+            "category": "ok"
+          },
+          {
+            "url": "https://cn.linkedin.com/in/chenran-ning/en",
+            "method": "GET",
+            "status": 999,
+            "ok": false,
+            "statusText": "Request denied",
+            "finalUrl": "https://cn.linkedin.com/in/chenran-ning/en",
+            "category": "limited"
+          },
+          {
+            "url": "https://web.okjike.com/u/B6B0FF28-51D1-4A11-803E-FC46A0AD6EF8",
+            "method": "HEAD",
+            "status": 200,
+            "ok": true,
+            "statusText": "OK",
+            "finalUrl": "https://web.okjike.com/u/B6B0FF28-51D1-4A11-803E-FC46A0AD6EF8",
+            "category": "ok"
+          }
+        ]
+      }
+    },
+    "/zh": {
+      "path": "/zh",
+      "url": "https://chenranning.com/zh",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/zh",
+      "contentType": "text/html; charset=utf-8",
+      "title": "404: This page could not be found.",
+      "description": "Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.",
+      "canonical": null,
+      "ogImage": "https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg",
+      "twitterCard": "summary_large_image",
+      "jsonLdTypes": [],
+      "jsonLdParseErrors": [],
+      "externalLinks": {
+        "total": 0,
+        "checked": 0,
+        "ok": 0,
+        "limited": 0,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "statusCodes": {},
+        "links": []
+      }
+    },
+    "/work/seedance-stranger-things-ai-finale": {
+      "path": "/work/seedance-stranger-things-ai-finale",
+      "url": "https://chenranning.com/work/seedance-stranger-things-ai-finale",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/work/seedance-stranger-things-ai-finale",
+      "contentType": "text/html; charset=utf-8",
+      "title": "404: This page could not be found.",
+      "description": "Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.",
+      "canonical": null,
+      "ogImage": "https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg",
+      "twitterCard": "summary_large_image",
+      "jsonLdTypes": [],
+      "jsonLdParseErrors": [],
+      "externalLinks": {
+        "total": 0,
+        "checked": 0,
+        "ok": 0,
+        "limited": 0,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "statusCodes": {},
+        "links": []
+      }
+    },
+    "/work/ai-will": {
+      "path": "/work/ai-will",
+      "url": "https://chenranning.com/work/ai-will",
+      "status": 404,
+      "ok": false,
+      "finalUrl": "https://chenranning.com/work/ai-will",
+      "contentType": "text/html; charset=utf-8",
+      "title": "404: This page could not be found.",
+      "description": "Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.",
+      "canonical": null,
+      "ogImage": "https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg",
+      "twitterCard": "summary_large_image",
+      "jsonLdTypes": [],
+      "jsonLdParseErrors": [],
+      "externalLinks": {
+        "total": 0,
+        "checked": 0,
+        "ok": 0,
+        "limited": 0,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "statusCodes": {},
+        "links": []
+      }
+    }
+  },
+  "sitemap": {
+    "url": "https://chenranning.com/sitemap.xml",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://chenranning.com/sitemap.xml",
+    "urls": []
+  },
+  "robots": {
+    "url": "https://chenranning.com/robots.txt",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://chenranning.com/robots.txt",
+    "raw": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"stylesheet\" href=\"/_next/static/chunks/0eje_3xn1lxpr.css\" data-precedence=\"next\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/01mhk8rsi88af.js\"/><script src=\"/_next/static/chunks/0oyj8vt-xx_ag.js\" async=\"\"></script><script src=\"/_next/static/chunks/06cclqnbyt80n.js\" async=\"\"></script><script src=\"/_next/static/chunks/turbopack-0~qz6g1n8_nnq.js\" async=\"\"></script><script src=\"/_next/static/chunks/0o-7hx1honk9g.js\" async=\"\"></script><meta name=\"robots\" content=\"noindex\"/><title>404: This page could not be found.</title><title>Chenran Ning | AI Video Product Lead</title><meta name=\"description\" content=\"Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.\"/><meta property=\"og:title\" content=\"Chenran Ning | AI Video Product Lead\"/><meta property=\"og:description\" content=\"AI video product lead, full-stack engineer, and AI filmmaker working across AI video, agentic workflows, creator tools, and AI-native storytelling.\"/><meta property=\"og:image\" content=\"https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name=\"twitter:title\" content=\"Chenran Ning | AI Video Product Lead\"/><meta name=\"twitter:description\" content=\"AI video product lead, full-stack engineer, and AI filmmaker working across AI video, agentic workflows, creator tools, and AI-native storytelling.\"/><meta name=\"twitter:image\" content=\"https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg\"/><link rel=\"icon\" href=\"/icon.svg?icon.0o11301yvk75a.svg\" sizes=\"any\" type=\"image/svg+xml\"/><script src=\"/_next/static/chunks/03~yq9q893hmn.js\" noModule=\"\"></script></head><body><div hidden=\"\"><!--$--><!--/$--></div><div style=\"font-family:system-ui,&quot;Segoe UI&quot;,Roboto,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;height:100vh;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center\"><div><style>body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}</style><h1 class=\"next-error-h1\" style=\"display:inline-block;margin:0 20px 0 0;padding:0 23px 0 0;font-size:24px;font-weight:500;vertical-align:top;line-height:49px\">404</h1><div style=\"display:inline-block\"><h2 style=\"font-size:14px;font-weight:400;line-height:49px;margin:0\">This page could not be found.</h2></div></div></div><!--$--><!--/$--><script src=\"/_next/static/chunks/01mhk8rsi88af.js\" id=\"_R_\" async=\"\"></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[76555,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"default\\\"]\\n3:I[76314,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"default\\\"]\\n4:I[99674,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[99674,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[99674,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[42761,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/chunks/0eje_3xn1lxpr.css\\\",\\\"style\\\"]\\n\"])</script><script>self.__next_f.push([1,\"0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"_not-found\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"/_not-found\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{}]}]},\\\"$undefined\\\",\\\"$undefined\\\",16],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/chunks/0eje_3xn1lxpr.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":\\\"$0:f:0:1:0:props:children:1:props:children:props:children:props:notFound:0:1:props:style\\\",\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":\\\"$0:f:0:1:0:props:children:1:props:children:props:children:props:notFound:0:1:props:children:props:children:1:props:style\\\",\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":\\\"$0:f:0:1:0:props:children:1:props:children:props:children:props:notFound:0:1:props:children:props:children:2:props:style\\\",\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":\\\"$0:f:0:1:0:props:children:1:props:children:props:children:props:notFound:0:1:props:children:props:children:2:props:children:props:style\\\",\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$@7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[[\\\"$\\\",\\\"meta\\\",null,{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex\\\"}],[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/chunks/0eje_3xn1lxpr.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"s\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\",\\\"b\\\":\\\"APaaU7PjrXFCT1bMiuafT\\\"}\\n\"])</script><script>self.__next_f.push([1,\"d:[]\\n7:\\\"$Wd\\\"\\n\"])</script><script>self.__next_f.push([1,\"9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n\"])</script><script>self.__next_f.push([1,\"e:I[36144,[\\\"/_next/static/chunks/0o-7hx1honk9g.js\\\"],\\\"IconMark\\\"]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Chenran Ning | AI Video Product Lead\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Chenran Ning is an AI video product lead, full-stack engineer, and AI filmmaker building Medeo and AI-native creative workflows.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"property\\\":\\\"og:title\\\",\\\"content\\\":\\\"Chenran Ning | AI Video Product Lead\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"3\\\",{\\\"property\\\":\\\"og:description\\\",\\\"content\\\":\\\"AI video product lead, full-stack engineer, and AI filmmaker working across AI video, agentic workflows, creator tools, and AI-native storytelling.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"4\\\",{\\\"property\\\":\\\"og:image\\\",\\\"content\\\":\\\"https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"5\\\",{\\\"name\\\":\\\"twitter:card\\\",\\\"content\\\":\\\"summary_large_image\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"6\\\",{\\\"name\\\":\\\"twitter:title\\\",\\\"content\\\":\\\"Chenran Ning | AI Video Product Lead\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"7\\\",{\\\"name\\\":\\\"twitter:description\\\",\\\"content\\\":\\\"AI video product lead, full-stack engineer, and AI filmmaker working across AI video, agentic workflows, creator tools, and AI-native storytelling.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"8\\\",{\\\"name\\\":\\\"twitter:image\\\",\\\"content\\\":\\\"https://chenran-site-production.up.railway.app/assets/chenran-qcon.jpg\\\"}],[\\\"$\\\",\\\"link\\\",\\\"9\\\",{\\\"rel\\\":\\\"icon\\\",\\\"href\\\":\\\"/icon.svg?icon.0o11301yvk75a.svg\\\",\\\"sizes\\\":\\\"any\\\",\\\"type\\\":\\\"image/svg+xml\\\"}],[\\\"$\\\",\\\"$Le\\\",\\\"10\\\",{}]]\\n\"])</script></body></html>",
+    "userAgents": [],
+    "allow": [],
+    "disallow": [],
+    "sitemaps": [],
+    "host": null
+  },
+  "externalLinksSummary": {
+    "total": 12,
+    "checked": 12,
+    "ok": 11,
+    "limited": 1,
+    "failed": 0,
+    "error": 0,
+    "skipped": 0,
+    "statusCodes": {
+      "200": 11,
+      "999": 1
+    }
+  }
+}

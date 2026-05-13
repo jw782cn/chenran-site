@@ -15,6 +15,7 @@ module: seo
 |---|---|---|
 | TypeScript | Pass | `pnpm typecheck` 通过 |
 | Production build | Pass | `pnpm build` 通过，`/`、`/zh`、`/robots.txt`、`/sitemap.xml`、`/work/seedance-stranger-things-ai-finale`、`/work/ai-will` 均静态生成 |
+| SEO monitor script | Pass | `pnpm --silent seo:monitor -- http://localhost:3000` 通过，6 个固定路径均返回 200，stdout 可直接作为 JSON 解析 |
 | robots.txt | Pass | `curl http://localhost:3000/robots.txt` 返回 `Allow: /`、`Disallow: /share/`、主域 sitemap |
 | sitemap.xml | Pass | `curl http://localhost:3000/sitemap.xml` 返回 4 个 URL：`/`、`/zh`、Seedance 作品页、AI Will 作品页 |
 | 首页 canonical | Pass | 首页 HTML 有 `rel="canonical"` 指向 `https://chenranning.com` |
@@ -45,11 +46,14 @@ module: seo
 - 移除 AI Will 旧项目页链接，避免安全页污染外链健康结果
 - 新增 `www.chenranning.com` 到 `https://chenranning.com` 的 308 / permanent redirect 规则
 - 首页增加 Bilibili 长期视频创作入口，避免早期 GitHub 项目成为主线
+- 新增 `scripts/seo-monitor.mjs` 和 `pnpm --silent seo:monitor`，可重复采集页面状态、title、description、canonical、OG image、Twitter card、JSON-LD type、sitemap、robots 和外链状态摘要
+- 新增 `docs/seo-monitoring.md`，作为每日 SEO 监测 automation 的本地 SSOT
 
 ## 3. 未完成 / 人工项
 
 - 未做浏览器截图 QA：当前项目未安装 Playwright，当前会话也没有可调用的 Browser 工具；本轮只做 curl / build / typecheck 验证
 - `www` 到 root 已在 Next redirect 层处理；上线后仍建议在 Railway / DNS 层确认真实生产环境行为
+- 线上 `https://chenranning.com` baseline 未在本轮写入，需由主 agent 在部署确认后运行 `pnpm --silent seo:monitor` 采集
 - Google Search Console 需要人工登录验证域名
 - Bing Webmaster Tools 需要人工登录验证域名
 - X 原帖完整互动数据、微信公众号原文、Instagram / TikTok / Shorts 转载链仍需后续截图或 Content Engine 补核
@@ -83,7 +87,32 @@ module: seo
 - 技术项：索引状态、canonical、sitemap、robots、富结果解析、图片入口
 - 外部引用：新增媒体报道、社交 profile sameAs、AI answer citation
 
-## 7. 外链健康检查
+## 7. 可循环监测脚本
+
+本地 SSOT：`docs/seo-monitoring.md`
+
+运行方式：
+
+```bash
+pnpm --silent seo:monitor
+pnpm --silent seo:monitor -- http://localhost:3000
+node scripts/seo-monitor.mjs http://localhost:3000
+```
+
+当前脚本默认检查 `https://chenranning.com`，支持传入任意 base URL。输出 JSON 到 stdout，不写文件，不把临时本地结果伪装成线上 baseline。
+
+2026-05-13 本地 smoke test：
+
+- 命令：`pnpm --silent seo:monitor -- http://localhost:3000`
+- 路径状态：`/`、`/zh`、`/work/seedance-stranger-things-ai-finale`、`/work/ai-will`、`/robots.txt`、`/sitemap.xml` 均返回 200
+- sitemap：4 条主域 URL
+- robots：`Allow: /`、`Disallow: /share/`、主域 sitemap
+- 页面 metadata：首页、中文页、两个作品页均采集到 title、description、canonical、OG image、Twitter card
+- JSON-LD：首页 / 中文页包含 `Person`、`ProfilePage`、`WebSite`；Seedance 页包含 `VideoObject`、`BreadcrumbList`；AI Will 页包含 `CreativeWork`、`BreadcrumbList`
+- 外链摘要：22 条去重外链，19 条 `ok`，3 条 `limited`，0 条 `failed`，0 条 `error`；`problemLinks` 顶层列出 LinkedIn 与微信 captcha 相关 URL
+- limited：LinkedIn 返回 999，两条微信公众号链接跳 captcha，需人工浏览器复核
+
+## 8. 外链健康检查
 
 检查日期：2026-05-13
 检查方法：Node `fetch`，先 HEAD，遇到 405 / 403 / 429 再 GET，12 秒超时
