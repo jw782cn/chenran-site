@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { seedanceLinks, SITE_URL } from "../../site-config";
 
+const workUrl = `${SITE_URL}${seedanceLinks.work}`;
+
 export const metadata: Metadata = {
   title: "Seedance 2.0 Stranger Things AI Finale | Chenran Ning",
   description:
@@ -38,9 +40,63 @@ const proofLinks = [
   ["NDTV Profit", seedanceLinks.ndtvProfit],
 ] as const;
 
+const workJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${workUrl}#breadcrumbs`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Seedance 2.0 Stranger Things AI Finale",
+          item: workUrl,
+        },
+      ],
+    },
+    {
+      "@type": "VideoObject",
+      "@id": `${workUrl}#video`,
+      name: "I Fixed Stranger Things 5 with Seedance 2.0",
+      description:
+        "Chenran Ning's Seedance 2.0 Stranger Things finale experiment, documented with verified proof links and reported reach.",
+      uploadDate: "2026-02-12",
+      thumbnailUrl: "https://i.ytimg.com/vi/iEmsuUuGBY4/hqdefault.jpg",
+      embedUrl: "https://www.youtube.com/embed/iEmsuUuGBY4",
+      contentUrl: seedanceLinks.youtube,
+      inLanguage: "en",
+      creator: {
+        "@id": `${SITE_URL}/#person`,
+      },
+      author: {
+        "@id": `${SITE_URL}/#person`,
+      },
+      about: ["Seedance 2.0", "AI video", "AI filmmaking", "Stranger Things fan finale"],
+      sameAs: [seedanceLinks.xPost, seedanceLinks.youtube, seedanceLinks.bilibili],
+      citation: proofLinks.map(([label, href]) => ({
+        "@type": "CreativeWork",
+        name: label,
+        url: href,
+      })),
+    },
+  ],
+} as const;
+
 export default function SeedanceWorkPage() {
   return (
     <main className="work-page">
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(workJsonLd) }}
+      />
       <header className="site-header work-header">
         <a className="brand" href="/" aria-label="Back to Chenran Ning home">
           CHENRAN NING

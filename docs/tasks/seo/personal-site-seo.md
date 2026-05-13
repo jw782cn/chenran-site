@@ -67,7 +67,7 @@ module: seo
 ### 2.3 已知问题
 
 - 当前公开站点缺少 `/robots.txt` 和 `/sitemap.xml`
-- root 和 `www` 都可访问，需确认 canonical / redirect 策略
+- root 和 `www` 的 canonical / redirect 策略已在代码层处理，上线后需确认生产环境行为
 - 当前没有 JSON-LD 结构化数据
 - 当前是单页锚点结构，缺少作品独立 URL、独立 title/meta/OG
 - 当前中文内容依赖客户端语言切换，不是清晰的可索引中文页面
@@ -106,7 +106,7 @@ P0 清洗范围：
 - 所有 metadata URL 使用主域
 - sitemap 只列主域 URL
 - 页面加 self canonical
-- 若 Railway / DNS 配置允许，`www` 301 到 root；如果暂时不改外部配置，页面层至少 canonical 到 root
+- `www` 永久重定向到 root；页面层同时 canonical 到 root
 
 ### 3.4 中文索引策略
 
@@ -251,7 +251,7 @@ P0 清洗范围：
 
 | 风险 | 缓解 |
 |---|---|
-| www 到 root 需要外部平台配置，代码内无法完全解决 | 先加 canonical 和 sitemap 主域，外部 redirect 列为人工 TODO |
+| www 到 root 的生产环境行为可能受 Railway / DNS 影响 | 代码层已加 permanent redirect，部署后用真实域名 `curl -I` 复验 |
 | 中文路由改动影响当前客户端语言切换 | 先做最小 `/zh` 页面，复用现有文案数据，保留原切换交互 |
 | JSON-LD 写入未核验指标或误用社交 handle 导致信任风险 | 只写身份、角色、sameAs、knowsAbout、worksFor，不写粉丝数、曝光量，且不把未确认社交 handle 写成姓名或别名 |
 | 拆作品页导致视觉风格膨胀 | 第一阶段只做 Seedance 模板页，复用现有视觉系统 |
@@ -263,3 +263,4 @@ P0 清洗范围：
 
 - **2026-05-13 T0** — 主 Agent 创建 SEO Task，引用 ran-brain SEO research，并拆分 Technical SEO、Content Architecture、Chinese Indexing、Verification 四个后续阶段
 - **2026-05-13 T1** — Coder 启动第一阶段准备工作：补 `robots.ts`、`sitemap.ts`、canonical、OG/Twitter image、Person/ProfilePage JSON-LD、`/zh` 中文入口、Seedance 作品页模板和 verification 文档
+- **2026-05-13 T2** — 补充 `www.chenranning.com` 到 root 主域的 permanent redirect，并为 Seedance 作品页增加 `VideoObject` / `BreadcrumbList` JSON-LD

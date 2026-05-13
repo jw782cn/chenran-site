@@ -22,6 +22,8 @@ module: seo
 | Seedance 作品页 canonical | Pass | 作品页 HTML 有 `rel="canonical"` 指向对应主域 URL |
 | OG / Twitter image | Pass | 首页、中文页、作品页均输出 `https://chenranning.com/assets/chenran-qcon.jpg` |
 | Person / ProfilePage JSON-LD | Pass | 首页 HTML 中存在 `application/ld+json`，包含 `Person`、`WebSite`、`ProfilePage` |
+| Seedance 作品页 JSON-LD | Pass | 作品页 HTML 中存在 `VideoObject` 和 `BreadcrumbList` |
+| www 到 root 重定向 | Pass | `curl -I -H 'Host: www.chenranning.com' http://localhost:3000/work/seedance-stranger-things-ai-finale` 返回 `308 Permanent Redirect` 到 root 主域 |
 | 旧 X handle 清理 | Pass | `app/**` 中未检出 `ran_zixing` |
 | 中文核心内容可抓取 | Pass | `curl http://localhost:3000/zh` 可直接看到“宁晨然”“报道口径”“Medeo AI 视频产品负责人”等中文核心文本 |
 
@@ -35,12 +37,14 @@ module: seo
 - 将 Seedance 媒体链接替换为已核验 URL：Times of India、Zoom TV、Cosmic Book News、Linkloud / 腾讯新闻、智源社区 / 极客公园
 - 将传播数据口径改为 reported / 报道口径 / estimated，不写成后台绝对数据
 - 新增 `/work/seedance-stranger-things-ai-finale` 作品页模板，包含角色、workflow、公开视频和 proof links
+- 新增 Seedance 作品页 `VideoObject` / `BreadcrumbList` JSON-LD
+- 新增 `www.chenranning.com` 到 `https://chenranning.com` 的 308 / permanent redirect 规则
 - 首页增加 Bilibili 长期视频创作入口，避免早期 GitHub 项目成为主线
 
 ## 3. 未完成 / 人工项
 
 - 未做浏览器截图 QA：当前项目未安装 Playwright，当前会话也没有可调用的 Browser 工具；本轮只做 curl / build / typecheck 验证
-- `www` 到 root 的 301 仍需在域名 / Railway 层处理；代码层已通过 canonical 和 sitemap 指向 root 主域
+- `www` 到 root 已在 Next redirect 层处理；上线后仍建议在 Railway / DNS 层确认真实生产环境行为
 - Google Search Console 需要人工登录验证域名
 - Bing Webmaster Tools 需要人工登录验证域名
 - X 原帖完整互动数据、微信公众号原文、Instagram / TikTok / Shorts 转载链仍需后续截图或 Content Engine 补核
