@@ -270,3 +270,4 @@ P0 清洗范围：
 - **2026-05-13 T4** — 按主人反馈移除 AI Will 旧项目页链接，新增 `/work/ai-will` 轻量作品页，证据主链改为 AI 新榜 / 新世相公众号报道与即刻发布复盘；重新核验外链，24 个外链中 23 个返回 200，LinkedIn 返回 999 反爬码
 - **2026-05-13 T5** — Coder 新增无外部依赖的 `scripts/seo-monitor.mjs` 和 `pnpm --silent seo:monitor`，补 `docs/seo-monitoring.md` 作为每日监测 SSOT；本地 `http://localhost:3000` smoke test 通过，未采集线上 baseline（完成）
 - **2026-05-13 T6** — 主 Agent 部署线上并采集 pre / post baseline；修复 canonical / OG image 被 Railway 环境变量带偏的问题，最终 6 个固定路径均返回 200，sitemap 4 条 URL，首页 canonical / OG image 均指向主域
+- 2026-05-18 — 补 /zh 真实语言路由、hreflang/x-default 和 Railway standalone 启动配置；本地 SEO/typecheck/build 通过，线上部署受 Railway Limited Access 暂停阻塞
