@@ -1,7 +1,14 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "./site-config";
 
-const lastModified = new Date("2026-05-13");
+const lastModified = new Date("2026-05-18");
+const homeAlternates = {
+  languages: {
+    "en-US": `${SITE_URL}/`,
+    "zh-CN": `${SITE_URL}/zh`,
+    "x-default": `${SITE_URL}/`,
+  },
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -10,12 +17,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly",
       priority: 1,
+      alternates: homeAlternates,
     },
     {
       url: `${SITE_URL}/zh`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.9,
+      alternates: homeAlternates,
     },
     {
       url: `${SITE_URL}/work/seedance-stranger-things-ai-finale`,

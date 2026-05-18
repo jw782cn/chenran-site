@@ -5,12 +5,12 @@ import type { Locale } from "./i18n";
 
 type LanguageContextValue = {
   locale: Locale;
-  toggle: () => void;
+  setLocale: (locale: Locale) => void;
 };
 
 const LanguageContext = createContext<LanguageContextValue>({
   locale: "en",
-  toggle: () => {},
+  setLocale: () => {},
 });
 
 export function LanguageProvider({
@@ -21,13 +21,10 @@ export function LanguageProvider({
   initialLocale?: Locale;
 }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
-  const toggle = useCallback(
-    () => setLocale((prev) => (prev === "en" ? "zh" : "en")),
-    []
-  );
+  const updateLocale = useCallback((nextLocale: Locale) => setLocale(nextLocale), []);
 
   return (
-    <LanguageContext.Provider value={{ locale, toggle }}>
+    <LanguageContext.Provider value={{ locale, setLocale: updateLocale }}>
       <div data-locale={locale}>{children}</div>
     </LanguageContext.Provider>
   );

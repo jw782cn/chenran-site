@@ -5,8 +5,19 @@ import dict, { type Locale } from "./i18n";
 import { aiWillLinks, profileLinks, seedanceLinks } from "./site-config";
 
 function PageContent() {
-  const { locale, toggle } = useLanguage();
+  const { locale, setLocale } = useLanguage();
   const t = dict[locale];
+
+  const switchLocale = (nextLocale: Locale) => {
+    if (nextLocale === locale) {
+      return;
+    }
+
+    setLocale(nextLocale);
+
+    const hash = window.location.hash;
+    window.location.assign(nextLocale === "zh" ? `/zh${hash}` : `/${hash}`);
+  };
 
   return (
     <main lang={locale === "zh" ? "zh-CN" : "en"}>
@@ -25,8 +36,9 @@ function PageContent() {
               className="lang-select"
               value={locale}
               onChange={(e) => {
-                if (e.target.value !== locale) toggle();
+                switchLocale(e.target.value as Locale);
               }}
+              aria-label="Switch language"
             >
               <option value="en">EN</option>
               <option value="zh">中文</option>
