@@ -13,6 +13,10 @@ const EXTERNAL_LINK_LIMIT = 80;
 const FALLBACK_STATUSES = new Set([403, 405, 429, 999]);
 const LIMITED_STATUSES = new Set([401, 403, 429, 999]);
 const USER_AGENT = "chenran-site-seo-monitor/1.0";
+const CURL_META_MARKER = "__CHENRAN_SEO_MONITOR_CURL_META__";
+const FORCE_FALLBACK = process.env.SEO_MONITOR_FORCE_FALLBACK === "1";
+const MAX_BODY_BYTES = 8 * 1024 * 1024;
+const MAX_REDIRECTS = 8;
 
 async function main() {
   const baseUrl = normalizeBaseUrl(process.argv.slice(2).find((arg) => arg !== "--") ?? DEFAULT_BASE_URL);
@@ -100,6 +104,13 @@ function normalizeBaseUrl(input) {
 
 async function fetchText(url) {
   try {
+    if (FORCE_FALLBACK) {
+      const fallback = await fetchTextWithFallback(url, null);
+      if (fallback) {
+        return fallback;
+      }
+    }
+
     const response = await fetchWithTimeout(url, { method: "GET" });
     const body = await response.text();
 
@@ -113,6 +124,9 @@ async function fetchText(url) {
       body,
     };
   } catch (error) {
+    const fallback = await fetchTextWithFallback(url, error);
+    if (fallback) return fallback;
+
     return {
       url,
       status: null,
@@ -144,6 +158,227 @@ async function fetchWithTimeout(url, init) {
   } finally {
     clearTimeout(timeout);
   }
+}
+
+async function fetchTextWithFallback(url, fetchError) {
+  const curl = await tryCurlText(url);
+  if (curl) {
+    return {
+      ...curl,
+      error: fetchError ? `fetch failed; curl fallback used: ${toErrorMessage(fetchError)}` : "curl fallback used",
+    };
+  }
+
+  const nodeFallback = await tryNodeRequestText(url);
+  if (nodeFallback) {
+    return {
+      ...nodeFallback,
+      error: fetchError ? `fetch failed; node http fallback used: ${toErrorMessage(fetchError)}` : "node http fallback used",
+    };
+  }
+
+  return null;
+}
+
+async function tryCurlText(url) {
+  const result = await tryCurlRequest(url, { method: "GET", includeBody: true });
+  if (!result) {
+    return null;
+  }
+
+  return {
+    url,
+    status: result.status,
+    ok: result.status !== null && result.status >= 200 && result.status < 300,
+    statusText: null,
+    finalUrl: result.finalUrl,
+    contentType: result.contentType,
+    body: result.body ?? "",
+  };
+}
+
+async function tryCurlRequest(url, options) {
+  const { method, includeBody } = options;
+  const timeoutSeconds = Math.max(1, Math.ceil(REQUEST_TIMEOUT_MS / 1000));
+  const args = [
+    "-sS",
+    "-L",
+    "-4",
+    "--max-time",
+    String(timeoutSeconds),
+    "--retry",
+    "2",
+    "--retry-delay",
+    "0",
+    "--retry-max-time",
+    String(timeoutSeconds),
+    "-A",
+    USER_AGENT,
+    "-H",
+    "Accept: */*",
+  ];
+
+  if (method === "HEAD") {
+    args.push("-I");
+  } else if (method !== "GET") {
+    args.push("-X", method);
+  }
+
+  if (!includeBody || method === "HEAD") {
+    args.push("-o", "/dev/null");
+  }
+
+  args.push(
+    "-w",
+    `\n${CURL_META_MARKER}%{http_code}|%{url_effective}|%{content_type}\n`,
+    url,
+  );
+
+  try {
+    const output = await execFileText("curl", args, REQUEST_TIMEOUT_MS + 2_000);
+    const markerIndex = output.lastIndexOf(`${CURL_META_MARKER}`);
+    if (markerIndex === -1) {
+      return null;
+    }
+
+    const metaLine = output.slice(markerIndex).trim();
+    const [_, codeRaw, effectiveRaw, contentTypeRaw] = metaLine.match(
+      new RegExp(`^${CURL_META_MARKER}(\\d+)\\|(.*)\\|(.*)$`),
+    ) ?? [null, null, null, null];
+
+    if (!codeRaw) {
+      return null;
+    }
+
+    const status = Number(codeRaw);
+    const body = includeBody ? output.slice(0, markerIndex).replace(/\n$/, "") : null;
+
+    return {
+      status: Number.isFinite(status) ? status : null,
+      finalUrl: effectiveRaw ? effectiveRaw.trim() : null,
+      contentType: contentTypeRaw ? contentTypeRaw.trim() : null,
+      body,
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function execFileText(command, args, timeoutMs) {
+  const { execFile } = await import("node:child_process");
+  const { promisify } = await import("node:util");
+  const execFileAsync = promisify(execFile);
+  const { stdout } = await execFileAsync(command, args, {
+    timeout: timeoutMs,
+    maxBuffer: 8 * 1024 * 1024,
+  });
+  return String(stdout ?? "");
+}
+
+async function tryNodeRequestText(url) {
+  const result = await tryNodeRequest(url, { method: "GET", includeBody: true });
+  if (!result) {
+    return null;
+  }
+
+  return {
+    url,
+    status: result.status,
+    ok: result.status !== null && result.status >= 200 && result.status < 300,
+    statusText: null,
+    finalUrl: result.finalUrl,
+    contentType: result.contentType,
+    body: result.body ?? "",
+  };
+}
+
+async function tryNodeRequest(url, options) {
+  const { method, includeBody } = options;
+  const { request: httpRequest } = await import("node:http");
+  const { request: httpsRequest } = await import("node:https");
+
+  let currentUrl = url;
+  let body = null;
+  let contentType = null;
+  let status = null;
+  let redirects = 0;
+
+  while (redirects <= MAX_REDIRECTS) {
+    const parsed = new URL(currentUrl);
+    const isHttps = parsed.protocol === "https:";
+    const requester = isHttps ? httpsRequest : httpRequest;
+
+    const response = await new Promise((resolve, reject) => {
+      const req = requester(
+        {
+          protocol: parsed.protocol,
+          hostname: parsed.hostname,
+          port: parsed.port || undefined,
+          path: `${parsed.pathname}${parsed.search}`,
+          method,
+          headers: {
+            "user-agent": USER_AGENT,
+            accept: "*/*",
+          },
+        },
+        (res) => resolve(res),
+      );
+
+      req.on("error", reject);
+      req.setTimeout(REQUEST_TIMEOUT_MS, () => {
+        req.destroy(new Error("Request timeout"));
+      });
+      req.end();
+    });
+
+    status = typeof response.statusCode === "number" ? response.statusCode : null;
+    contentType = response.headers?.["content-type"] ? String(response.headers["content-type"]) : null;
+    const location = response.headers?.location ? String(response.headers.location) : null;
+
+    if (status !== null && status >= 300 && status < 400 && location) {
+      redirects += 1;
+      currentUrl = new URL(location, currentUrl).href;
+      response.resume();
+      continue;
+    }
+
+    if (!includeBody || method === "HEAD") {
+      response.resume();
+      body = null;
+      break;
+    }
+
+    const chunks = [];
+    let total = 0;
+
+    await new Promise((resolve, reject) => {
+      response.on("data", (chunk) => {
+        const bytes = Buffer.isBuffer(chunk) ? chunk.length : Buffer.byteLength(String(chunk));
+        total += bytes;
+        if (total > MAX_BODY_BYTES) {
+          response.destroy(new Error("Response body too large"));
+          return;
+        }
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+      });
+      response.on("end", resolve);
+      response.on("error", reject);
+    });
+
+    body = Buffer.concat(chunks).toString("utf8");
+    break;
+  }
+
+  if (redirects > MAX_REDIRECTS) {
+    return null;
+  }
+
+  return {
+    status,
+    finalUrl: currentUrl,
+    contentType,
+    body,
+  };
 }
 
 function parseHtmlPage(path, resource, baseUrl) {
@@ -328,6 +563,11 @@ async function checkExternalLink(url) {
 
 async function tryExternalFetch(url, method) {
   try {
+    if (FORCE_FALLBACK) {
+      const forced = await tryExternalFetchWithFallback(url, method, null);
+      if (forced) return forced;
+    }
+
     const response = await fetchWithTimeout(url, { method });
     await response.body?.cancel().catch(() => undefined);
 
@@ -340,6 +580,9 @@ async function tryExternalFetch(url, method) {
       finalUrl: response.url,
     };
   } catch (error) {
+    const fallback = await tryExternalFetchWithFallback(url, method, error);
+    if (fallback) return fallback;
+
     return {
       url,
       method,
@@ -350,6 +593,38 @@ async function tryExternalFetch(url, method) {
       error: toErrorMessage(error),
     };
   }
+}
+
+async function tryExternalFetchWithFallback(url, method, fetchError) {
+  const curl = await tryCurlRequest(url, { method, includeBody: false });
+  if (curl) {
+    const statusOk = curl.status !== null && curl.status >= 200 && curl.status < 400;
+    return {
+      url,
+      method,
+      status: curl.status,
+      ok: statusOk,
+      statusText: null,
+      finalUrl: curl.finalUrl,
+      error: fetchError ? `fetch failed; curl fallback used: ${toErrorMessage(fetchError)}` : "curl fallback used",
+    };
+  }
+
+  const node = await tryNodeRequest(url, { method, includeBody: false });
+  if (node) {
+    const statusOk = node.status !== null && node.status >= 200 && node.status < 400;
+    return {
+      url,
+      method,
+      status: node.status,
+      ok: statusOk,
+      statusText: null,
+      finalUrl: node.finalUrl,
+      error: fetchError ? `fetch failed; node http fallback used: ${toErrorMessage(fetchError)}` : "node http fallback used",
+    };
+  }
+
+  return null;
 }
 
 function classifyExternalResult(result) {
@@ -492,7 +767,25 @@ function unique(values) {
 }
 
 function toErrorMessage(error) {
-  return error instanceof Error ? error.message : String(error);
+  if (!(error instanceof Error)) {
+    return String(error);
+  }
+
+  const parts = [];
+  parts.push(error.name === "Error" ? error.message : `${error.name}: ${error.message}`);
+  const anyError = error;
+
+  if (typeof anyError.code === "string") {
+    parts.push(`code=${anyError.code}`);
+  }
+  if (typeof anyError.errno === "number") {
+    parts.push(`errno=${anyError.errno}`);
+  }
+  if (anyError.cause instanceof Error) {
+    parts.push(`cause=${anyError.cause.name}: ${anyError.cause.message}`);
+  }
+
+  return parts.filter(Boolean).join(" | ");
 }
 
 main().catch((error) => {
